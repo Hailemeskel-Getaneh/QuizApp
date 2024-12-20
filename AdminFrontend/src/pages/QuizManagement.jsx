@@ -21,6 +21,7 @@ const QuizManagement = () => {
     }
   };
 
+  
   // Fetch categories for dropdown
   const fetchCategories = async () => {
     try {
