@@ -1,0 +1,42 @@
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background-color: #34495e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar.closed {
+    width: 0px;
+  }
+  
+  .sidebar .toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .sidebar nav {
+    margin-top: 20px;
+  }
+  
+  .sidebar nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    transition: background 0.3s;
+    font-family: sans-serif;
+  }
+  
+  .sidebar nav a:hover {
+    background-color: #12191f;
+  }
+  

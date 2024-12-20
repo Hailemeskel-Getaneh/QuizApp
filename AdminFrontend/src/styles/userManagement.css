@@ -1,0 +1,196 @@
+.user-management {
+    padding: 20px;
+    background-color: #f4f4f9;
+    height: 100vh;
+  }
+  
+  .user-management h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  
+  .user-management p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .user-management .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .user-management .user-table th,
+  .user-management .user-table td {
+    padding: 10px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .user-management .user-table th {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .user-management .user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .user-management .user-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .user-management .user-table button {
+    padding: 8px 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .user-management .user-table button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* User Management Page Styles */
+.user-management-container {
+    width: 100%;
+    padding: 20px;
+    background-color: #f4f4f9;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h2 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .add-user-btn {
+    padding: 10px 20px;
+    background-color: #3faffa;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    max-width: 200px;
+    margin-right: 50px;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .search-bar svg {
+    margin-left: 10px;
+    color: #3faffa;
+  }
+  
+  .user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-table th, .user-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .user-table th {
+    background-color: #3faffa;
+    color: white;
+  }
+  
+  .user-table tr:hover {
+    background-color: #dbd6d6;
+  }
+  
+  .user-table td button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    color: #3faffa;
+  }
+  
+  .user-table td button:hover {
+    color: #0056b3;
+  }
+  
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 400px;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #3faffa;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button.close-btn {
+    padding: 10px;
+    background-color: #e0e0e0;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
