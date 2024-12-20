@@ -21,7 +21,6 @@ const QuizManagement = () => {
     }
   };
 
-  
   // Fetch categories for dropdown
   const fetchCategories = async () => {
     try {
@@ -34,6 +33,7 @@ const QuizManagement = () => {
     }
   };
 
+  // Handle quiz creation
   const handleCreateQuiz = async () => {
     const data = { quizName, selectedCategories, totalTime };
     try {
@@ -58,6 +58,7 @@ const QuizManagement = () => {
     }
   };
 
+  // Handle quiz deletion
   const handleDeleteQuiz = async (quizId) => {
     try {
       const response = await fetch(`http://localhost:4000/api/delete-quiz/${quizId}`, {
@@ -74,6 +75,15 @@ const QuizManagement = () => {
       console.error('Error deleting quiz:', error);
       alert('Error deleting quiz');
     }
+  };
+
+  // Update selected categories
+  const handleCategoryChange = (event) => {
+    const { options } = event.target;
+    const selected = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
+    setSelectedCategories(selected);
   };
 
   useEffect(() => {
@@ -97,14 +107,13 @@ const QuizManagement = () => {
         <select
           multiple
           value={selectedCategories}
-          onChange={(e) => {
-            const options = Array.from(e.target.selectedOptions).map((opt) => opt.value);
-            setSelectedCategories(options);
-          }}
+          onChange={handleCategoryChange}
         >
-          <option value="" disabled>
-            Select categories
-          </option>
+          {categories.length === 0 && (
+            <option value="" disabled>
+              Loading categories...
+            </option>
+          )}
           {categories.map((cat) => (
             <option key={cat._id} value={cat._id}>
               {cat.name}

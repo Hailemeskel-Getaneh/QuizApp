@@ -1,14 +1,47 @@
 import React, { useState } from 'react';
-import '../styles/pagesStyle/login.css'; 
+import '../styles/pagesStyle/login.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(''); // Use `userId` as the username
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login Submitted', { username, password });
+    setErrorMessage('');
+    setSuccessMessage('');
+  
+    try {
+      const response = await fetch('http://localhost:4000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: username,
+          password,
+        }),
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error: ${response.status} - ${errorText}`);
+      }
+  
+      const data = await response.json();
+      setSuccessMessage('Login successful! Redirecting...');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('id', username);
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 1000);
+    } catch (error) {
+      setErrorMessage(error.message || 'An error occurred. Please try again.');
+      console.error('Error during login:', error);
+    }
   };
+  
 
   return (
     <div className="login-page">
@@ -17,7 +50,7 @@ const LoginPage = () => {
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">User ID</label>
               <input
                 type="text"
                 id="username"
@@ -36,6 +69,8 @@ const LoginPage = () => {
                 required
               />
             </div>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
             <button type="submit" className="login-btn">Login</button>
           </form>
         </div>
@@ -46,7 +81,7 @@ const LoginPage = () => {
             The quiz app is simple and intuitive with its own set of rules.
           </p>
           <p>
-            Enter your username and password, click the login button, and navigate to the dashboard to start answering quiz questions.
+            Enter your user ID and default password, click the login button, and navigate to the dashboard to start answering quiz questions.
           </p>
         </div>
       </div>

@@ -2,19 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 import '../styles/QuestionManagement.css';
 
-const QuestionManagement = ({ categoryId }) => {
+const QuestionManagement = () => {
+  const [quizzes, setQuizzes] = useState([]); // For quizzes
+  const [selectedQuizId, setSelectedQuizId] = useState('');
   const [questions, setQuestions] = useState([]);
   const [questionText, setQuestionText] = useState('');
   const [options, setOptions] = useState(['', '', '', '']);
   const [correctAnswer, setCorrectAnswer] = useState('');
-  const [timeLimit, setTimeLimit] = useState(30);
-  const [totalQuizTime, setTotalQuizTime] = useState(0);
   const [editingQuestion, setEditingQuestion] = useState(null);
 
-  // Fetch questions for the given category
-  const fetchQuestions = async () => {
+  // Fetch quizzes from backend
+  const fetchQuizzes = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/questions/676578cd3d2250ff481726ff`);
+      const response = await fetch('http://localhost:4000/api/quizzes');
+      if (!response.ok) throw new Error('Failed to fetch quizzes');
+      const data = await response.json();
+      setQuizzes(data);
+    } catch (error) {
+      console.error('Error fetching quizzes:', error);
+    }
+  };
+
+  // Fetch questions for the selected quiz
+  const fetchQuestions = async () => {
+    if (!selectedQuizId) return; // Fetch questions only when a quiz is selected
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/questions/${selectedQuizId}`
+      );
       if (!response.ok) throw new Error('Failed to fetch questions');
       const data = await response.json();
       setQuestions(data);
@@ -24,73 +39,41 @@ const QuestionManagement = ({ categoryId }) => {
   };
 
   const handleAddOrUpdateQuestion = async () => {
-    if (!categoryId) {
-        alert('Please select a category before adding a question.');
-        return;
+    if (!selectedQuizId) {
+      alert('Please select a quiz before adding a question.');
+      return;
     }
 
-    const data = { categoryId, questionText, options, correctAnswer, timeLimit };
+    const data = {
+      quizId: selectedQuizId,
+      questionText,
+      options,
+      correctAnswer,
+    };
 
     try {
-        const endpoint = editingQuestion
-            ? `http://localhost:4000/api/update-question/${editingQuestion._id}`
-            : 'http://localhost:4000/api/add-question';
+      const endpoint = editingQuestion
+        ? `http://localhost:4000/api/update-question/${editingQuestion._id}`
+        : 'http://localhost:4000/api/add-question';
 
-        const method = editingQuestion ? 'PUT' : 'POST';
+      const method = editingQuestion ? 'PUT' : 'POST';
 
-        const response = await fetch(endpoint, {
-            method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-            alert(editingQuestion ? 'Question updated successfully' : 'Question added successfully');
-            fetchQuestions();
-            resetForm();
-        } else {
-            alert('Failed to process the question');
-        }
-    } catch (error) {
-        console.error('Error processing question:', error);
-        alert('Error processing question');
-    }
-};
-
-  const handleDeleteQuestion = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:4000/api/delete-question/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        alert('Question deleted successfully');
-        fetchQuestions();
-      } else {
-        alert('Failed to delete question');
-      }
-    } catch (error) {
-      console.error('Error deleting question:', error);
-      alert('Error deleting question');
-    }
-  };
-
-  const handleSetTotalQuizTime = async () => {
-    try {
-      const data = { categoryId, totalQuizTime };
-      const response = await fetch('http://localhost:4000/api/set-total-quiz-time', {
-        method: 'POST',
+      const response = await fetch(endpoint, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        alert(`Total quiz time set to ${totalQuizTime} minutes`);
+        alert(editingQuestion ? 'Question updated successfully' : 'Question added successfully');
+        fetchQuestions();
+        resetForm();
       } else {
-        alert('Failed to set total quiz time');
+        alert('Failed to process the question');
       }
     } catch (error) {
-      console.error('Error setting total quiz time:', error);
+      console.error('Error processing question:', error);
+      alert('Error processing question');
     }
   };
 
@@ -98,7 +81,6 @@ const QuestionManagement = ({ categoryId }) => {
     setQuestionText('');
     setOptions(['', '', '', '']);
     setCorrectAnswer('');
-    setTimeLimit(30);
     setEditingQuestion(null);
   };
 
@@ -107,16 +89,37 @@ const QuestionManagement = ({ categoryId }) => {
     setQuestionText(question.questionText);
     setOptions(question.options);
     setCorrectAnswer(question.correctAnswer);
-    setTimeLimit(question.timeLimit);
   };
 
   useEffect(() => {
-    fetchQuestions();
-  }, [categoryId]);
+    fetchQuizzes(); // Fetch quizzes when the component loads
+  }, []);
+
+  useEffect(() => {
+    fetchQuestions(); // Fetch questions when the selected quiz changes
+  }, [selectedQuizId]);
 
   return (
     <div className="question-management">
       <h2>Manage Questions</h2>
+
+      {/* Select Quiz */}
+      <div className="select-quiz">
+        <h3>Select Quiz</h3>
+        <select
+          value={selectedQuizId}
+          onChange={(e) => setSelectedQuizId(e.target.value)}
+        >
+          <option value="" disabled>
+            -- Select a Quiz --
+          </option>
+          {quizzes.map((quiz) => (
+            <option key={quiz._id} value={quiz._id} className='quizName'>
+              {quiz.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {/* Add or Edit Question */}
       <div className="add-question">
@@ -146,12 +149,6 @@ const QuestionManagement = ({ categoryId }) => {
           onChange={(e) => setCorrectAnswer(e.target.value)}
           placeholder="Correct answer"
         />
-        <input
-          type="number"
-          value={timeLimit}
-          onChange={(e) => setTimeLimit(e.target.value)}
-          placeholder="Time limit per question (seconds)"
-        />
         <button onClick={handleAddOrUpdateQuestion}>
           {editingQuestion ? 'Update Question' : 'Add Question'}
         </button>
@@ -159,57 +156,7 @@ const QuestionManagement = ({ categoryId }) => {
       </div>
 
       {/* Question List */}
-      <div className="question-list">
-        <table>
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Options</th>
-              <th>Correct Answer</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {questions.length > 0 ? (
-              questions.map((q) => (
-                <tr key={q._id}>
-                  <td>{q.questionText}</td>
-                  <td>
-                    {q.options.map((opt, index) => (
-                      <div key={index}>{opt}</div>
-                    ))}
-                  </td>
-                  <td>{q.correctAnswer}</td>
-                  <td>
-                    <button onClick={() => handleEditQuestion(q)}>
-                      <FaEdit />
-                    </button>
-                    <button onClick={() => handleDeleteQuestion(q._id)}>
-                      <FaTrash />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4">No questions available</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Set Quiz Time */}
-      <div className="set-quiz-time">
-        <h3>Set Total Quiz Time</h3>
-        <input
-          type="number"
-          value={totalQuizTime}
-          onChange={(e) => setTotalQuizTime(e.target.value)}
-          placeholder="Total time for quiz (minutes)"
-        />
-        <button onClick={handleSetTotalQuizTime}>Set Quiz Time</button>
-      </div>
+      {/* Add logic to display the questions */}
     </div>
   );
 };
