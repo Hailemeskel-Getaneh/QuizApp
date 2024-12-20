@@ -83,6 +83,7 @@ const QuestionManagement = ({ categoryId }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+      
 
       if (response.ok) {
         alert(`Total quiz time set to ${totalQuizTime} minutes`);
