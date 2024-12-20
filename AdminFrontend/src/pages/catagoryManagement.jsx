@@ -61,8 +61,8 @@ const CategoryManagement = () => {
         placeholder="Category Description"
       />
       <button onClick={handleAddCategory}>Add Category</button>
-
       <div>
+        
         <h3>Categories List</h3>
         {categories.map((category) => (
           <div key={category._id}>
