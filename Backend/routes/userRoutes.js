@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import User from '../models/userModel.js'; // Ensure the User model is properly exported with ES6
 const router = express.Router();
 
+
 // Create a user
 router.post('/add-user', async (req, res) => {
   const { name, email, role } = req.body;
