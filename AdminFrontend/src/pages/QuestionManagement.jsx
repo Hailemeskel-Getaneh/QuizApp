@@ -11,7 +11,6 @@ const QuestionManagement = () => {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [editingQuestion, setEditingQuestion] = useState(null);
 
-  // Fetch quizzes from backend
   const fetchQuizzes = async () => {
     try {
       const response = await fetch('http://localhost:4000/api/quizzes');
@@ -22,6 +21,12 @@ const QuestionManagement = () => {
       console.error('Error fetching quizzes:', error);
     }
   };
+  
+  // Fetch quizzes when the component loads
+  useEffect(() => {
+    fetchQuizzes();
+  }, []);
+  
 
   // Fetch questions for the selected quiz
   const fetchQuestions = async () => {

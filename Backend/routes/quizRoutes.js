@@ -7,7 +7,8 @@ const router = express.Router();
 // Fetch all quizzes
 router.get('/quizzes', async (req, res) => {
   try {
-    const quizzes = await Quiz.find().populate('categories');
+    // const quizzes = await Quiz.find().populate('categories');
+    const quizzes = await Quiz.find();
     res.json(quizzes);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching quizzes' });
