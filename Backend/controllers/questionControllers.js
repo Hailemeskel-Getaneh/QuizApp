@@ -10,7 +10,6 @@ export const addQuestion = async (req, res) => {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        // Create a new question
         const newQuestion = new Question({
             categoryId,
             questionText,

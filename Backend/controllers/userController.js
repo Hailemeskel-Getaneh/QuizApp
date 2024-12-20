@@ -10,6 +10,7 @@ exports.addUser = async (req, res) => {
       return res.status(400).json({ message: 'UserId, name, and email are required.' });
     }
 
+    
     // Create and save the user
     const newUser = new User({ userId, name, email, role, score });
     await newUser.save();

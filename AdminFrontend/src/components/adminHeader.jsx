@@ -17,6 +17,7 @@ const AdminHeader = ({ toggleSidebar }) => {
         <a id="logout" href="logout">Logout</a>
       </nav>
     </header>
+    
   );
 };
 

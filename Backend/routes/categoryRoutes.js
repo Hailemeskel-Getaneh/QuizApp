@@ -48,7 +48,7 @@ router.delete('/delete-category/:categoryId', async (req, res) => {
   }
 });
 
-// Update Category by ID
+// Update Category by using ID
 router.put('/update-category/:categoryId', async (req, res) => {
   const { categoryId } = req.params;
   const { name, description } = req.body;
@@ -72,5 +72,6 @@ router.put('/update-category/:categoryId', async (req, res) => {
     res.status(500).json({ message: 'Error updating category', error });
   }
 });
+
 
 export default router;

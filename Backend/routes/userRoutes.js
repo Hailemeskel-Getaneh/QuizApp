@@ -2,6 +2,11 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/userModel.js'; // Ensure the User model is properly exported with ES6
 const router = express.Router();
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken'
+
+dotenv.config()
+
 
 // Create a user
 router.post('/add-user', async (req, res) => {
@@ -80,5 +85,35 @@ router.put('/users/edit-user/:id', async (req, res) => {
     res.status(500).json({ message: 'Failed to update user' });
   }
 });
+
+
+// Login route
+router.post('users/login', async (req, res) => {
+  const { id, password } = req.body;
+
+  try {
+    // Find the user by userId
+    const user = await User.findOne({ id });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the password matches (default password check)
+    if (password !== user.password) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ message: 'Login successful', token });
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 export default router;

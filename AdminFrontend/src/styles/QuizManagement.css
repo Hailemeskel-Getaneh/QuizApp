@@ -7,6 +7,9 @@
     text-align: center;
     color: #4a90e2;
   }
+  .quizName{
+    color: black;
+  }
   
   .create-quiz {
     margin: 20px 0;
