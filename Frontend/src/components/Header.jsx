@@ -41,6 +41,11 @@ export default function Header() {
           <NavLink className="link" to="/contact">
             Contact
           </NavLink>
+          </div>
+          <div className="one-links">
+          <NavLink className="link" to="/quizPage">
+            page
+          </NavLink>
         </div>
         <NavLink to="/login">
           <button className="button1">Login</button>

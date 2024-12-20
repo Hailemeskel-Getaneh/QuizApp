@@ -6,6 +6,7 @@ import Contact from './pages/Contact';
 import Help from './pages/Help';
 import Header from './components/Header';
 import Login from './pages/login';
+import QuizPage from './pages/quizPage';
 
 const App = () => {
   return (
@@ -17,6 +18,10 @@ const App = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/quizPage" element={<QuizPage />} />
+
+
+    
       </Routes>
     </div>
   );
