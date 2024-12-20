@@ -35,7 +35,10 @@ body {
     justify-content: center;
     align-items: flex-start;
   }
-  
+  input:focus+label{
+    transform: translateY(-25px);
+    color: #0056b3;
+  }
   .login-form h2 {
     font-size: 24px;
     color: #333333;

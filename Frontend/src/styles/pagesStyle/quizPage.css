@@ -1,34 +1,110 @@
-.user-page {
-    padding: 20px;
-    margin-top: 70px;
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
   }
   
-  .categories-container {
+  h2, h3 {
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Container Styles */
+  .quizzes-container, .questions-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 1rem;
+    justify-content: center;
   }
   
-  .category-card {
+  .quiz-card, .question-card {
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 300px;
-    height:100px;
     text-align: center;
-  }  
-  .category-card h3 {
-    margin-bottom: 10px;
-    color: #000;
+    cursor: pointer;
   }
   
-  .category-card p {
-    font-size: 14px;
-    color:white;
-  }
-  .category-card:hover {
+  .questions-container:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .question-card {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+  }
+  
+  .quiz-card h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+  
+  .quiz-card p {
+    font-size: 1rem;
+    color: white;
+  }
+  
+  /* Passcode Container */
+  .passcode-container {
+    margin-top: 2rem;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 2rem auto;
+  }
+  
+  .passcode-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .passcode-container input:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  .passcode-container button {
+    width: 100%;
+  }
+  
+  .passcode-container p {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .quiz-card, .question-card {
+      width: 100%;
+    }
+  
+    .passcode-container {
+      width: 90%;
+    }
   }
   

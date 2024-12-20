@@ -6,10 +6,7 @@ const UserPage = () => {
   const [categories, setCategories] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [passcode, setPasscode] = useState('');
-  const [validPasscode, setValidPasscode] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
 
   // Fetch categories from the backend
   const fetchCategories = async () => {
@@ -41,33 +38,13 @@ const UserPage = () => {
     }
   };
 
-  // Handle passcode validation
-  const handlePasscodeSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:4000/api/validate-passcode', {
-        categoryId: selectedCategory._id,
-        passcode,
-      });
-
-      if (response.status === 200) {
-        setValidPasscode(true);
-        setErrorMessage('');
-        fetchQuestions();
-      }
-    } catch (error) {
-      setErrorMessage('Invalid passcode');
-    }
-  };
-
   useEffect(() => {
     fetchCategories();
     fetchQuizzes();
   }, []);
 
   return (
-   <div>
-
+    <div>
       <h2>Quizzes</h2>
       <div className="quizzes-container">
         {quizzes.map((quiz) => (
@@ -79,24 +56,7 @@ const UserPage = () => {
         ))}
       </div>
 
-      {selectedCategory && !validPasscode && (
-        <div className="passcode-container">
-          <h3>Enter Passcode for {selectedCategory.name}</h3>
-          <form onSubmit={handlePasscodeSubmit}>
-            <input
-              type="password"
-              value={passcode}
-              onChange={(e) => setPasscode(e.target.value)}
-              placeholder="Enter Passcode"
-              required
-            />
-            <button type="submit">Submit</button>
-          </form>
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        </div>
-      )}
-
-      {validPasscode && questions.length > 0 && (
+      {selectedCategory && (
         <div className="questions-container">
           <h3>Questions for {selectedCategory.name}</h3>
           {questions.map((question, index) => (
