@@ -4,6 +4,8 @@ import '../styles/pagesStyle/Home.css';
 import About from '../pages/About.jsx';
 import Contact from '../pages/Contact.jsx';
 
+import quizPage from '../pages/quizPage.jsx';
+
 export default function Home() {
   return (
     <>
@@ -28,7 +30,7 @@ export default function Home() {
 
       <About/>
       <Contact/>
-    
+      <quizPage/>
     </>
   );
 }

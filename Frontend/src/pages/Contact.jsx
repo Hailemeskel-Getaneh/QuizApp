@@ -59,7 +59,7 @@ const ContactPage = () => {
 
   return (
     <div className="contact-container">
-      <h1>Contact Us</h1>
+      <h2>Contact Us</h2>
       <form className="contact-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
