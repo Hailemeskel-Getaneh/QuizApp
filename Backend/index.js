@@ -73,6 +73,7 @@ app.use('/api', categoryRoutes);
 app.use('/api', questionRoutes);
 app.use('/api', quizRoutes);
 
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });

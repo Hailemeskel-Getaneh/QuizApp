@@ -107,4 +107,30 @@ body {
     color: #555555;
     line-height: 1.6;
   }
+  @media (max-width: 480px) {
+    .login-page {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
   
+    .login-container {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    .login-form {
+      width: 100%;
+    }
+  
+    .description {
+      width: 100%;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+  
+    .login-btn {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }

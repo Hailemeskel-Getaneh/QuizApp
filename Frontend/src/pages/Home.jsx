@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/pagesStyle/Home.css';
+import About from '../pages/About.jsx';
+import Contact from '../pages/Contact.jsx';
+
+import quizPage from '../pages/quizPage.jsx';
 
 export default function Home() {
   return (
+    <>
     <div className="home-container">
       <div className="home-header">
         <h1>Welcome to Quiz App</h1>
@@ -21,6 +26,11 @@ export default function Home() {
       <div className="home-footer">
         <p>Ready to level up your knowledge? Let’s begin!</p>
       </div>
-    </div>
+      </div>
+
+      <About/>
+      <Contact/>
+      <quizPage/>
+    </>
   );
 }
