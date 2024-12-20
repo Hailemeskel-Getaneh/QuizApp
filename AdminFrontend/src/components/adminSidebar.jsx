@@ -18,6 +18,7 @@ const Sidebar = () => {
         <a href="catagory-management">Catagory Management</a>
         <a href="reports">Reports</a>
       </nav>
+      
     </aside>
   );
 };
