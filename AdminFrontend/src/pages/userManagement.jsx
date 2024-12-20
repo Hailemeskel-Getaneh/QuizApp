@@ -136,6 +136,7 @@ const UserManagement = () => {
           setIsAddingUser={setIsAddingUser} // Reset the flag after closing modal
         />
       )}
+      
 
       {/* Edit User Modal */}
       {showModal && selectedUser && !isAddingUser && (
