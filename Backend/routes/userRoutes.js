@@ -88,7 +88,7 @@ router.put('/users/edit-user/:id', async (req, res) => {
 
 
 // Login route
-router.post('users/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   const { id, password } = req.body;
 
   try {
@@ -113,7 +113,5 @@ router.post('users/login', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
-
 
 export default router;
