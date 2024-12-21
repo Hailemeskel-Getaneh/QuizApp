@@ -11,17 +11,22 @@ const QuestionManagement = () => {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [editingQuestion, setEditingQuestion] = useState(null);
 
-  // Fetch quizzes from backend
   const fetchQuizzes = async () => {
     try {
       const response = await fetch('http://localhost:4000/api/quizzes');
       if (!response.ok) throw new Error('Failed to fetch quizzes');
       const data = await response.json();
-      setQuizzes(data);
+      setQuizzes(data); // Set quizzes to the state
     } catch (error) {
       console.error('Error fetching quizzes:', error);
     }
   };
+  
+  // Fetch quizzes when the component loads
+  useEffect(() => {
+    fetchQuizzes();
+  }, []);
+  
 
   // Fetch questions for the selected quiz
   const fetchQuestions = async () => {
@@ -66,8 +71,8 @@ const QuestionManagement = () => {
 
       if (response.ok) {
         alert(editingQuestion ? 'Question updated successfully' : 'Question added successfully');
-        fetchQuestions();
-        resetForm();
+        fetchQuestions(); // Fetch the updated question list
+        resetForm(); // Reset form after successful add/update
       } else {
         alert('Failed to process the question');
       }
@@ -91,6 +96,7 @@ const QuestionManagement = () => {
     setCorrectAnswer(question.correctAnswer);
   };
 
+  // Run fetch functions when component loads or when selected quiz changes
   useEffect(() => {
     fetchQuizzes(); // Fetch quizzes when the component loads
   }, []);
@@ -113,11 +119,15 @@ const QuestionManagement = () => {
           <option value="" disabled>
             -- Select a Quiz --
           </option>
-          {quizzes.map((quiz) => (
-            <option key={quiz._id} value={quiz._id} className='quizName'>
-              {quiz.name}
-            </option>
-          ))}
+          {quizzes.length > 0 ? (
+            quizzes.map((quiz) => (
+              <option key={quiz._id} value={quiz._id} className="quizName">
+                {quiz.name}
+              </option>
+            ))
+          ) : (
+            <option disabled>No quizzes available</option>
+          )}
         </select>
       </div>
 
@@ -156,7 +166,60 @@ const QuestionManagement = () => {
       </div>
 
       {/* Question List */}
-      {/* Add logic to display the questions */}
+      {questions.length > 0 && (
+        <div className="question-list">
+          <h3>Questions in this Quiz</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Options</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {questions.map((question) => (
+                <tr key={question._id}>
+                  <td>{question.questionText}</td>
+                  <td>
+                    {question.options.map((option, index) => (
+                      <div key={index}>{option}</div>
+                    ))}
+                  </td>
+                  <td>
+                    <button onClick={() => handleEditQuestion(question)}>
+                      <FaEdit />
+                    </button>
+                    <button
+                      onClick={async () => {
+                        // Add logic to delete the question
+                        try {
+                          const response = await fetch(
+                            `http://localhost:4000/api/delete-question/${question._id}`,
+                            {
+                              method: 'DELETE',
+                            }
+                          );
+                          if (response.ok) {
+                            alert('Question deleted successfully');
+                            fetchQuestions();
+                          } else {
+                            alert('Failed to delete the question');
+                          }
+                        } catch (error) {
+                          console.error('Error deleting question:', error);
+                        }
+                      }}
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

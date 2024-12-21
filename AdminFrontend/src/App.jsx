@@ -11,8 +11,12 @@ import ParentManager from './components/ParentManager.jsx'; // Import ParentMana
 import Reports from "./pages/reports";
 import AdminHeader from "./components/adminHeader";
 import Sidebar from "./components/adminSidebar";
+
 import "./styles/adminStyles.css"; // Ensure the CSS file is imported
 import LoginPage from "./pages/adminLogin.jsx";
+
+//Hailemeskel
+
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
