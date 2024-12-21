@@ -1,7 +1,7 @@
 .sidebar {
     width: 230px;
     height: 100vh;
-    background-color: #34495e;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     color: white;
     display: flex;
     flex-direction: column;
@@ -31,12 +31,12 @@
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-    padding: 10px 20px;
+    padding: 15px 20px;
     transition: background 0.3s;
     font-family: sans-serif;
   }
   
   .sidebar nav a:hover {
-    background-color: #12191f;
+    background-color: #9255d3;
   }
   
