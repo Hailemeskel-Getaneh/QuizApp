@@ -1,47 +1,45 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/pagesStyle/login.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState(''); // Use `userId` as the username
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
-  
+
+    const loginData = { id: username, password }; // Renamed to match backend
+
     try {
-      const response = await fetch('http://localhost:4000/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: username,
-          password,
-        }),
-      });
-  
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Error: ${response.status} - ${errorText}`);
+      const response = await axios.post('http://localhost:4000/api/users/login', loginData);
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token); // Store the token here
+        localStorage.setItem('id', username);
+        setSuccessMessage('Login successful! Redirecting...');
+        setTimeout(() => {
+          navigate('/quizPage');
+        }, 1000);
+      } else {
+        setErrorMessage('Login failed. Please check your credentials.');
       }
-  
-      const data = await response.json();
-      setSuccessMessage('Login successful! Redirecting...');
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('id', username);
-      setTimeout(() => {
-        window.location.href = '/dashboard';
-      }, 1000);
     } catch (error) {
-      setErrorMessage(error.message || 'An error occurred. Please try again.');
       console.error('Error during login:', error);
+      if (error.response) {
+        setErrorMessage(`Error: ${error.response.status} - ${error.response.data.message}`);
+      } else if (error.request) {
+        setErrorMessage('Login failed. No response from server.');
+      } else {
+        setErrorMessage('Login failed. Error setting up the request.');
+      }
     }
   };
-  
 
   return (
     <div className="login-page">
