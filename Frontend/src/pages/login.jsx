@@ -4,42 +4,35 @@ import axios from 'axios';
 import '../styles/pagesStyle/login.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [loginData, setLoginData] = useState({ userId: '', password: '' });
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData(prevData => ({ ...prevData, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
-    setSuccessMessage('');
-
-    const loginData = { id: username, password }; // Renamed to match backend
-
     try {
       const response = await axios.post('http://localhost:4000/api/users/login', loginData);
       if (response.status === 200) {
-        localStorage.setItem('token', response.data.token); // Store the token here
-        localStorage.setItem('id', username);
-        setSuccessMessage('Login successful! Redirecting...');
-        setTimeout(() => {
-          navigate('/quizPage');
-        }, 1000);
+        localStorage.setItem('token', response.data.token); // Store the JWT token
+        alert('Login successful!');
+        navigate('/quizPage'); // Redirect to /quizPage
       } else {
-        setErrorMessage('Login failed. Please check your credentials.');
+        alert('Login failed.');
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Error:', error);
       if (error.response) {
-        setErrorMessage(`Error: ${error.response.status} - ${error.response.data.message}`);
-      } else if (error.request) {
-        setErrorMessage('Login failed. No response from server.');
+        alert(`Login failed: ${error.response.data.message}`);
       } else {
-        setErrorMessage('Login failed. Error setting up the request.');
+        alert('Login failed. Please try again later.');
       }
     }
   };
+  
 
   return (
     <div className="login-page">
@@ -52,8 +45,9 @@ const LoginPage = () => {
               <input
                 type="text"
                 id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="userId"
+                value={loginData.userId}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -62,13 +56,13 @@ const LoginPage = () => {
               <input
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={loginData.password}
+                onChange={handleChange}
                 required
               />
             </div>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
+       
             <button type="submit" className="login-btn">Login</button>
           </form>
         </div>

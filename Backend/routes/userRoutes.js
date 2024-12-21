@@ -6,24 +6,24 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 
 dotenv.config()
-
+const secretKey = process.env.JWT_SECRET;
 
 // Create a user
 router.post('/add-user', async (req, res) => {
-  const { name, email, role } = req.body;
+  const { userId, name, email, role } = req.body;
 
   // Hash the default password
   const defaultPassword = 'password123';
-  const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+  // const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
   // Generate unique ID for the user
-  const userId = 'user' + Date.now();
+  // const userId = 'user' + Date.now();
 
   const newUser = new User({
     id: userId,
     name,
     email,
-    password: hashedPassword,
+    password: defaultPassword,
     role,
     score: 0, // Default score
   });
@@ -87,31 +87,27 @@ router.put('/users/edit-user/:id', async (req, res) => {
 });
 
 
-// Login route
+
 router.post('/login', async (req, res) => {
-  const { id, password } = req.body;
+  const { userId, password } = req.body;
 
   try {
-    // Find the user by userId
-    const user = await User.findOne({ id });
-
+    const user = await User.findOne({ userId });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if the password matches (default password check)
-    if (password !== user.password) {
-      return res.status(401).json({ message: 'Invalid password' });
-    }
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+    // if (!isPasswordValid) {
+    //   return res.status(401).json({ message: 'Invalid credentials' });
+    // }
 
-    // Generate a JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(200).json({ message: 'Login successful', token });
+    const token = jwt.sign({ userId }, secretKey, { expiresIn: '1h' });
+    res.status(200).json({ token });
   } catch (error) {
-    console.error('Error during login:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 export default router;
