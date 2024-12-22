@@ -18,21 +18,16 @@ import LoginPage from "./pages/adminLogin.jsx";
 
 
 const App = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-    document.body.classList.toggle("sidebar-open", sidebarOpen);
-  };
+ 
 
   return (
     <>
     
     <div className="admin-app">
      
-      <AdminHeader toggleSidebar={toggleSidebar} />
+      <AdminHeader />
       <div className="main-content">
-        <Sidebar className={sidebarOpen ? "open" : "closed"} />
+        <Sidebar />
         <div className="page-content">
           <Routes>
             <Route path="/" element={<LoginPage />} />
