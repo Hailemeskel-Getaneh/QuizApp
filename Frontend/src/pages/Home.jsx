@@ -31,11 +31,7 @@ export default function Home() {
 
       <About/>
       <Contact/>
-<<<<<<< HEAD
-      <FooterPage/>
-=======
       <quizPage/>
->>>>>>> f3d37891d6355c713188ff383ea191661e42343a
     </>
   );
 }
