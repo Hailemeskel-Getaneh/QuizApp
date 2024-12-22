@@ -95,7 +95,7 @@ const UserPage = () => {
             questions.map((question, index) => (
               <div key={index} className="question-card">
                 <p>{question.questionText}</p>
-                {/* Render question options */}
+               
               </div>
             ))
           ) : (
