@@ -19,10 +19,10 @@ const App = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/quiz-page" element={<QuizPage />} />
+        {/* <Route path="/quizPage" element={<QuizPage />} /> */}
 
         <Route element={<ProtectedRoute />}>
-            <Route path="/quiz-page" element={<QuizPage />} />
+            <Route path="/quizPage" element={<QuizPage />} />
           </Route>
     
       </Routes>

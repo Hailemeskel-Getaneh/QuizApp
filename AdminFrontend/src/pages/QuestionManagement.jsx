@@ -22,10 +22,21 @@ const QuestionManagement = () => {
     }
   };
   
-  // Fetch quizzes when the component loads
-  useEffect(() => {
-    fetchQuizzes();
-  }, []);
+  // Fetch categories for dropdown
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/categories');
+      if (!response.ok) throw new Error('Failed to fetch categories');
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+  // // Fetch quizzes when the component loads
+  // useEffect(() => {
+  //   fetchQuizzes();
+  // }, []);
   
 
   // Fetch questions for the selected quiz

@@ -57,8 +57,8 @@ export default function Header() {
           </NavLink>
         </div>
         <div className="one-links">
-          <NavLink className="link" to="/quiz-page">
-            Page
+          <NavLink className="link" to="/quizPage">
+           Quiz Page
           </NavLink>
         </div>
         {/* Dynamic Login/Logout Button */}

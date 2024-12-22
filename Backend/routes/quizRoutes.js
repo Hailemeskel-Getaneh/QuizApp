@@ -1,8 +1,10 @@
 import express from 'express';
 import Quiz from '../models/quizModel.js';
 import Category from '../models/categoryModel.js';
+import addQuestionToQuiz from '../controllers/quizController.js'
 
 const router = express.Router();
+
 
 // Fetch all quizzes
 router.get('/quizzes', async (req, res) => {
@@ -21,10 +23,10 @@ router.get('/categories', async (req, res) => {
     const categories = await Category.find();
     res.json(categories);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching categories' });
-  }
+    res.status(500).json({ message: 'Error fetching categories' });  }
 });
 
+router.post('/add-question-to-quiz', addQuestionToQuiz);
 // Create a new quiz
 router.post('/create-quiz', async (req, res) => {
   const { quizName, selectedCategories, totalTime } = req.body;
