@@ -12,7 +12,7 @@ const AdminHeader = ({ toggleSidebar }) => {
       <nav className="nav-links">
        
          <a href="profile"   className="profile"> </a>
-        <a id="logout" href="logout">Logout</a>
+        <a id="logout" href="LoginPage">Logout</a>
       </nav>
     </header>
     

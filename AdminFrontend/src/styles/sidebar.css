@@ -9,9 +9,7 @@
     transition: width 0.3s ease;
   }
   
-  .sidebar.closed {
-    width: 0px;
-  }
+  
   
   .sidebar .toggle-btn {
     background: none;
@@ -39,4 +37,41 @@
   .sidebar nav a:hover {
     background-color: #9255d3;
   }
+  /* Basic Sidebar Styles */
+.sidebar {
+  width: 200px;
+  transition: width 0.3s;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar.closed {
+  width: 80px; /* Smaller width when closed */
+}
+
+.sidebar .sidebar-icon {
+  margin-right: 10px;
+  font-size: 1.5em;
+}
+
+/* Hide text on small screens */
+.sidebar .sidebar-text {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .sidebar .sidebar-text {
+    display: none; /* Hide text on small screens */
+  }
   
+  .sidebar.open {
+    width: 60px; /* Smaller width on mobile */
+  }
+
+  /* Show only icons in mobile view */
+  .sidebar .sidebar-icon {
+    margin-right: 0;
+    font-size: 1.5em;
+  }
+}

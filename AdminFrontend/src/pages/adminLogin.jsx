@@ -74,16 +74,7 @@ const LoginPage = () => {
             <button type="submit" className="login-btn">Login</button>
           </form>
         </div>
-        <div className="vertical-line"></div>
-        <div className="description">
-          <h2>About the Quiz App</h2>
-          <p>
-            The quiz app is simple and intuitive with its own set of rules.
-          </p>
-          <p>
-            Enter your user ID and default password, click the login button, and navigate to the dashboard to start answering quiz questions.
-          </p>
-        </div>
+       
       </div>
     </div>
   );
