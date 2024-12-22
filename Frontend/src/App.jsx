@@ -9,6 +9,7 @@ import Login from './pages/login';
 import QuizPage from './pages/quizPage.jsx';
 import ProtectedRoute from './components/protectedRoute';
 import Header2 from './components/Header2';
+import Result from './pages/resultPage.jsx';
 
 const App = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const App = () => {
         {/* Protected Route for the QuizPage */}
         <Route element={<ProtectedRoute />}>
           <Route path="/quiz-page" element={<QuizPage />} />
+          <Route path="/Result" element={<Result />} />
         </Route>
       </Routes>
     </div>
