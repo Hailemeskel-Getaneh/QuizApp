@@ -41,32 +41,12 @@ export default function Header() {
             Home
           </NavLink>
         </div>
-        <div className="one-links">
-          <NavLink className="link" to="/about">
-            About
-          </NavLink>
-        </div>
-        <div className="one-links">
-          <NavLink className="link" to="/help">
-            Help
-          </NavLink>
-        </div>
-        <div className="one-links">
-          <NavLink className="link" to="/contact">
-            Contact
-          </NavLink>
-        </div>
-        
-        {/* Dynamic Login/Logout Button */}
-        {isLoggedIn ? (
+       
           <button className="button1" onClick={handleLogout}>
             Logout
           </button>
-        ) : (
-          <NavLink to="/login">
-            <button className="button1">Login</button>
-          </NavLink>
-        )}
+        
+      
       </div>
     </div>
   );
