@@ -13,14 +13,14 @@ router.post('/add-user', async (req, res) => {
   const { userId, name, email, role } = req.body;
 
   // Hash the default password
-  const defaultPassword = 'password123';
+  const defaultPassword = "123456";
   // const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
   // Generate unique ID for the user
   // const userId = 'user' + Date.now();
 
   const newUser = new User({
-    id: userId,
+    userId,
     name,
     email,
     password: defaultPassword,
@@ -87,27 +87,41 @@ router.put('/users/edit-user/:id', async (req, res) => {
 });
 
 
+//check that the user is registered or not
 
-router.post('/login', async (req, res) => {
+router.post('/users/login', async (req, res) => {
   const { userId, password } = req.body;
 
   try {
+    // Find user by email
     const user = await User.findOne({ userId });
+
+    // If user not found
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'User not found.' });
     }
 
-    // const isPasswordValid = await bcrypt.compare(password, user.password);
-    // if (!isPasswordValid) {
-    //   return res.status(401).json({ message: 'Invalid credentials' });
-    // }
 
-    const token = jwt.sign({ userId }, secretKey, { expiresIn: '1h' });
-    res.status(200).json({ token });
+    if (password != user.password) {
+      return res.status(401).json({ message: 'Invalid password.' });
+    }
+
+    res.status(200).json({ message: 'Login successful!' });
+
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Internal server error.' });
   }
 });
 
-
 export default router;
+
+
+
+
+
+
+
+
+
+

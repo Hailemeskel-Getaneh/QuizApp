@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  id: {
+  userId: {
     type: String,
     required: true,
     unique: true,
@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    default: '123456', // Default password
   },
   role: {
     type: String,
@@ -30,8 +31,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Create a model for User using the schema
 const User = mongoose.model('User', userSchema);
 
-export default User; // Correct ES Module export
-
+export default User;

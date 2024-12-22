@@ -25,7 +25,7 @@ if (!MONGO_URL) {
 }
 
 mongoose
-  .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGO_URL)
   .then(() => {
     console.log('Database connected successfully');
   })

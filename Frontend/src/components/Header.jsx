@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/componentstyle/Header.css';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // Check login status on mount
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    setIsLoggedIn(!!token); // Update login state
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Clear token from localStorage
+    setIsLoggedIn(false); // Update login state
+    navigate('/login'); // Redirect to login page
   };
 
   return (
@@ -41,15 +55,22 @@ export default function Header() {
           <NavLink className="link" to="/contact">
             Contact
           </NavLink>
-          </div>
-          <div className="one-links">
-          <NavLink className="link" to="/quizPage">
-            page
+        </div>
+        <div className="one-links">
+          <NavLink className="link" to="/quiz-page">
+            Page
           </NavLink>
         </div>
-        <NavLink to="/login">
-          <button className="button1">Login</button>
-        </NavLink>
+        {/* Dynamic Login/Logout Button */}
+        {isLoggedIn ? (
+          <button className="button1" onClick={handleLogout}>
+            Logout
+          </button>
+        ) : (
+          <NavLink to="/login">
+            <button className="button1">Login</button>
+          </NavLink>
+        )}
       </div>
     </div>
   );

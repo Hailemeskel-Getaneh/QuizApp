@@ -1,7 +1,7 @@
 .sidebar {
     width: 230px;
     height: 100vh;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: linear-gradient(135deg, #1e1a22 0%, #7c8daa 100%);
     color: white;
     display: flex;
     flex-direction: column;

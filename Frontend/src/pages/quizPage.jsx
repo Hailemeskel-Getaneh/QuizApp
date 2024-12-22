@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/pagesStyle/quizPage.css';
 
 const UserPage = () => {
@@ -7,6 +8,21 @@ const UserPage = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const navigate = useNavigate();
+
+  // Check if the user is logged in
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      navigate('/login'); // Redirect to login page if not logged in
+    }
+  }, [navigate]);
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Remove the token
+    navigate('/login'); // Redirect to login page
+  };
 
   // Fetch categories from the backend
   const fetchCategories = async () => {
@@ -45,6 +61,21 @@ const UserPage = () => {
 
   return (
     <div>
+      <button
+        type="button"
+        className="button-booking"
+        style={{
+          width: '80px',
+          color: 'black',
+          marginTop: '20px',
+          marginLeft: '90%',
+          alignItems: 'flex-end',
+        }}
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+
       <h2>Quizzes</h2>
       <div className="quizzes-container">
         {quizzes.map((quiz) => (

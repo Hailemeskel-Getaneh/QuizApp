@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/pagesStyle/login.css';
 import { Link, useNavigate } from 'react-router-dom';
+// import axios from '../components/axios_instance.jsx';
 import axios from 'axios';
 
 const LoginPage = () => {
@@ -21,7 +20,7 @@ const LoginPage = () => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token); // Store the JWT token
         alert('Login successful!');
-        navigate('/quizPage'); // Redirect to /quizPage
+        navigate('/quiz-page'); // Redirect to /quizPage
       } else {
         alert('Login failed.');
       }
