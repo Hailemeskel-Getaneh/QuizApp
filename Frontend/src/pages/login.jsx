@@ -1,14 +1,40 @@
 import React, { useState } from 'react';
-import '../styles/pagesStyle/login.css'; 
-import FooterPage from '../components/Footer'
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+import '../styles/pagesStyle/login.css';
+import { Link, useNavigate } from 'react-router-dom';
+// import axios from '../components/axios_instance.jsx';
+import axios from 'axios';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Login Submitted', { username, password });
+
+const LoginPage = () => {
+  const [loginData, setLoginData] = useState({ userId: '', password: '' });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData(prevData => ({ ...prevData, [name]: value }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:4000/api/users/login', loginData);
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token); // Store the JWT token
+        alert('Login successful!');
+        navigate('/quiz-page'); // Redirect to /quizPage
+      } else {
+        alert('Login failed.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      if (error.response) {
+        alert(`Login failed: ${error.response.data.message}`);
+      } else {
+        alert('Login failed. Please try again later.');
+      }
+    }
+  };
+  
 
   return (
     <div className="login-page">
@@ -17,12 +43,13 @@ const LoginPage = () => {
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">User ID</label>
               <input
                 type="text"
                 id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="userId"
+                value={loginData.userId}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -31,11 +58,13 @@ const LoginPage = () => {
               <input
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={loginData.password}
+                onChange={handleChange}
                 required
               />
             </div>
+       
             <button type="submit" className="login-btn">Login</button>
           </form>
         </div>
@@ -46,7 +75,7 @@ const LoginPage = () => {
             The quiz app is simple and intuitive with its own set of rules.
           </p>
           <p>
-            Enter your username and password, click the login button, and navigate to the dashboard to start answering quiz questions.
+            Enter your user ID and default password, click the login button, and navigate to the dashboard to start answering quiz questions.
           </p>
         </div>
       </div>

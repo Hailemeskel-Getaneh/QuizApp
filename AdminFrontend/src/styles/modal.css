@@ -37,6 +37,7 @@
   input,
   select {
     width: 100%;
+    margin-right: 20px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -80,9 +81,9 @@
   
   .modal-content {
     background: white;
-    padding: 20px;
     border-radius: 8px;
     width: 400px;
+    padding-right: 50px;
   }
   
   .modal-buttons {

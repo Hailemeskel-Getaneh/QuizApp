@@ -1,23 +1,62 @@
-// quizRoutes.js
 import express from 'express';
-import Question from '../models/questionModel.js';
+import Quiz from '../models/quizModel.js';
+import Category from '../models/categoryModel.js';
 
 const router = express.Router();
 
-// Get quiz for user (random or by category)
-router.get('/quiz/:categoryId', async (req, res) => {
-  const { categoryId } = req.params;
+// Fetch all quizzes
+router.get('/quizzes', async (req, res) => {
+  try {
+    // const quizzes = await Quiz.find().populate('categories');
+    const quizzes = await Quiz.find();
+    res.json(quizzes);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching quizzes' });
+  }
+});
+
+// Fetch all categories
+router.get('/categories', async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching categories' });
+  }
+});
+
+// Create a new quiz
+router.post('/create-quiz', async (req, res) => {
+  const { quizName, selectedCategories, totalTime } = req.body;
 
   try {
-    const questions = await Question.find({ category: categoryId }).populate('category');
-    const quiz = questions.map(q => ({
-      questionText: q.questionText,
-      options: q.options,
-      timeLimit: q.timeLimit
-    }));
-    res.status(200).json(quiz);
+    const quiz = new Quiz({
+      quizName,
+      categories: selectedCategories,
+      totalTime,
+    });
+
+    await quiz.save();
+    res.status(201).json({ message: 'Quiz created successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching quiz', error });
+    res.status(500).json({ message: 'Error creating quiz' });
+  }
+});
+
+// Delete a quiz by ID
+router.delete('/delete-quiz/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const quiz = await Quiz.findByIdAndDelete(id);
+
+    if (!quiz) {
+      return res.status(404).json({ message: 'Quiz not found' });
+    }
+
+    res.json({ message: 'Quiz deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting quiz' });
   }
 });
 

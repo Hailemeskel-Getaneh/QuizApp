@@ -11,8 +11,11 @@
     color: rgb(56, 56, 232);
     text-align: center;
   }
-  
+  #paragraph{
+    color: #000;
+  }
   .paragraph {
+    color: #000;
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 20px;

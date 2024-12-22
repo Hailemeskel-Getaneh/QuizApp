@@ -5,6 +5,8 @@ import About from '../pages/About.jsx';
 import Contact from '../pages/Contact.jsx';
 import FooterPage from '../components/Footer'
 
+import quizPage from '../pages/quizPage.jsx';
+
 export default function Home() {
   return (
     <>
@@ -29,7 +31,11 @@ export default function Home() {
 
       <About/>
       <Contact/>
+<<<<<<< HEAD
       <FooterPage/>
+=======
+      <quizPage/>
+>>>>>>> f3d37891d6355c713188ff383ea191661e42343a
     </>
   );
 }

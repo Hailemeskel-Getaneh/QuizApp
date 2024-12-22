@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #6a24d3;
+    background: linear-gradient(135deg, #201928 0%, #2575fc 100%);
     color: white;
     padding: 1rem 2rem;
     display: flex;
@@ -13,7 +13,7 @@
     align-items: center;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+    height: 50px;
   }
   
   .admin-header .logo {
@@ -36,6 +36,13 @@
   .admin-header .nav-links {
     display: flex;
     gap: 2rem;
+    font-weight: bold;
+  }
+  .profile{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-image: url("../assets/images/homebg.jpg");
   }
   
   .admin-header .nav-links a {

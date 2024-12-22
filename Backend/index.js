@@ -25,7 +25,7 @@ if (!MONGO_URL) {
 }
 
 mongoose
-  .connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGO_URL)
   .then(() => {
     console.log('Database connected successfully');
   })
@@ -72,6 +72,7 @@ app.use('/api', userRoutes); // Prefix user-related routes with `/api/users`
 app.use('/api', categoryRoutes);
 app.use('/api', questionRoutes);
 app.use('/api', quizRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);

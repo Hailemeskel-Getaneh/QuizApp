@@ -10,7 +10,7 @@ router.post('/add-category', async (req, res) => {
 
   try {
     await newCategory.save();
-    console.log(`Category created: ${newCategory._id}`);
+    // console.log(`Category created: ${newCategory._id}`);
     res.status(201).json({ message: 'Category created successfully' });
   } catch (error) {
     console.error(error);
@@ -43,7 +43,7 @@ router.delete('/delete-category/:categoryId', async (req, res) => {
     console.log(`Category deleted: ${categoryId}`);
     res.status(200).json({ message: 'Category deleted successfully' });
   } catch (error) {
-    console.error(`Error deleting category (${categoryId}):`, error);
+    // console.error(`Error deleting category (${categoryId}):`, error);
     res.status(500).json({ message: 'Error deleting category', error });
   }
 });
