@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import QuizManagement from "./pages/QuestionManagement.jsx";
+import QuizManagement from "./pages/QuizManagement.jsx";
 import UserManagement from "./pages/userManagement";
 import CatagoryManagement from "./pages/categoryManagement.jsx";
 import AdminProfile from './pages/profile.jsx'
@@ -11,13 +11,11 @@ import ParentManager from './components/ParentManager.jsx'; // Import ParentMana
 import Reports from "./pages/reports";
 import AdminHeader from "./components/adminHeader";
 import Sidebar from "./components/adminSidebar";
-<<<<<<< HEAD
+
 import "./styles/adminStyles.css";
-//Hailemeskel
-=======
 import "./styles/adminStyles.css"; // Ensure the CSS file is imported
 import LoginPage from "./pages/adminLogin.jsx";
->>>>>>> b0c9790f45a82009e7f6b1a33a32b5cbc4c87b10
+
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
