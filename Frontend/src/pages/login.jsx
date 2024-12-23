@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // import axios from '../components/axios_instance.jsx';
 import axios from 'axios';
 
+
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({ userId: '', password: '' });
   const navigate = useNavigate();
@@ -78,6 +79,7 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
+      <FooterPage/>
     </div>
   );
 };
