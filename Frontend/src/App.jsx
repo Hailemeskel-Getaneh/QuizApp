@@ -10,6 +10,7 @@ import QuizPage from './pages/quizPage.jsx';
 import ProtectedRoute from './components/protectedRoute';
 import Header2 from './components/Header2';
 import Result from './pages/resultPage.jsx';
+import FooterPage from './components/Footer.jsx';
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +26,16 @@ const App = () => {
       return <Header />;  // Default header for other pages
     }
   };
+  const renderFooter = () => {
+    if (location.pathname === '/quiz-page') {
+      return  null ;
+      
+    } else if (location.pathname === '/resultPage' )
+    return  null; // Use the result page
+    else {
+      return <FooterPage/>;  
+    }
+  };
 
   return (
     <div>
@@ -36,13 +47,12 @@ const App = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-
-        {/* Protected Route for the QuizPage */}
         <Route element={<ProtectedRoute />}>
           <Route path="/quiz-page" element={<QuizPage />} />
           <Route path="/Result" element={<Result />} />
         </Route>
       </Routes>
+      {renderFooter()} 
     </div>
   );
 };
