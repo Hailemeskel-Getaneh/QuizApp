@@ -3,12 +3,14 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: true,
-    unique: true,  // Ensure that email is unique
+    required: [true, "Email is required"],
+    unique: true,
+    match: [/.+@.+\..+/, "Invalid email format"], // Regex for email validation
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required"],
+    minlength: [6, "Password must be at least 6 characters long"],
   },
 });
 

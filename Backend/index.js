@@ -74,9 +74,7 @@ app.use('/api', userRoutes); // Prefix user-related routes with `/api/users`
 app.use('/api', categoryRoutes);
 app.use('/api', questionRoutes);
 app.use('/api', quizRoutes);
-
-app.use('/api', sinupRoute); // Adjusted route for signup
-
+ app.use('/api/user', sinupRoute);
 
 
 

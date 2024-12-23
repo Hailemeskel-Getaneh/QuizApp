@@ -13,42 +13,31 @@ const CreateAccountPage = () => {
   
     // Function to handle form submission
     async function buttonHandler(e) {
-        e.preventDefault();
-      
-        // Check if passwords match
-        if (password !== confirmPassword) {
-          setError("Passwords do not match");
-          setTimeout(() => setError(""), 4000);
-          return;
-        }
-      
-        try {
-          const response = await axios.post("http://localhost:4000/api/user/register", {
-            email,
-            password,
-          });
-      
-          // Check if response is defined and has the expected data
-          if (response && response.data) {
-            console.log(response.data); // Log the response to see the data
-            setSuccessMessage("Registration successful! Redirecting...");
-            setTimeout(() => {
-              navigate("/dashboard");
-            }, 2000);
-          } else {
-            setError("Unexpected response format");
-          }
-        } catch (err) {
-          console.error(err);
-          // Check if error.response exists and handle accordingly
-          if (err.response && err.response.data) {
-            setError(err.response.data.message);
-          } else {
-            setError("An error occurred. Please try again later.");
-          }
-          setTimeout(() => setError(""), 4000);
-        }
+      e.preventDefault();
+  
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        setError("Passwords do not match"); // Set error message if passwords don't match
+        setTimeout(() => setError(""), 4000); // Clear error message after 4 seconds
+        return; // Exit function if passwords don't match
       }
+  
+      try {
+        const response = await axios.post("http://localhost:4000/api/user/register", {
+          email,
+          password
+        });
+        console.log(response.data);
+        setSuccessMessage("Registration successful! Redirecting...");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000); // Navigate to Login page after 2 seconds
+      } catch (err) {
+        setError(err.response.data.message);
+        setTimeout(() => setError(""), 4000); // Clear error message after 4 seconds
+      }
+    }
+      
       
     return (
         <div className="create-account-container">
@@ -90,7 +79,7 @@ const CreateAccountPage = () => {
                     <button type="submit" className="create-account-btn">Create Account</button>
                 </form>
                 <div className="login-link">
-                    <p>Already have an account? <Link to="/login">Login here</Link></p>
+                    <p>Already have an account? <Link to="/">Login here</Link></p>
                 </div>
             </div>
         </div>

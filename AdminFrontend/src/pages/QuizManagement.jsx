@@ -8,6 +8,7 @@ const QuizManagement = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [totalTime, setTotalTime] = useState(30);
+  const [Passcode, setPasscode] = useState('');
 
   // Fetch existing quizzes
   const fetchQuizzes = async () => {
@@ -35,29 +36,31 @@ const QuizManagement = () => {
 
   // Handle quiz creation
   const handleCreateQuiz = async () => {
-    const data = { quizName, selectedCategories, totalTime };
+    const data = { quizName, selectedCategories, totalTime, Passcode };
     try {
       const response = await fetch('http://localhost:4000/api/create-quiz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
+  
       if (response.ok) {
         alert('Quiz created successfully');
         fetchQuizzes();
         setQuizName('');
         setSelectedCategories([]);
         setTotalTime(30);
+        setPasscode('');
       } else {
-        alert('Failed to create quiz');
+        const errorData = await response.json();
+        alert(`Failed to create quiz: ${errorData.message}`);
       }
     } catch (error) {
       console.error('Error creating quiz:', error);
       alert('Error creating quiz');
     }
   };
-
+  
   // Handle quiz deletion
   const handleDeleteQuiz = async (quizId) => {
     try {
@@ -127,6 +130,12 @@ const QuizManagement = () => {
           onChange={(e) => setTotalTime(e.target.value)}
           placeholder="Total quiz time (minutes)"
         />
+        <input
+          type="String"
+          value={Passcode}
+          onChange={(e) => setPasscode(e.target.value)}
+          placeholder="enter pass code"
+        />
         <button onClick={handleCreateQuiz}>Create Quiz</button>
       </div>
 
@@ -139,6 +148,7 @@ const QuizManagement = () => {
               <th>Quiz Name</th>
               <th>Categories</th>
               <th>Total Time</th>
+              <th>Passcode</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -149,6 +159,7 @@ const QuizManagement = () => {
                   <td>{quiz.quizName}</td>
                   <td>{quiz.categories.map((cat) => cat.name).join(', ')}</td>
                   <td>{quiz.totalTime} minutes</td>
+                  <td>{quiz.passcode} </td>
                   <td>
                     <button onClick={() => alert('Edit functionality to be implemented')}>
                       <FaEdit /> Edit

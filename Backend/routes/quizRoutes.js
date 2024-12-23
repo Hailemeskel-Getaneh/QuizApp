@@ -27,21 +27,30 @@ router.get('/categories', async (req, res) => {
 
 // Create a new quiz
 router.post('/create-quiz', async (req, res) => {
-  const { quizName, selectedCategories, totalTime } = req.body;
-
   try {
-    const quiz = new Quiz({
+    const { quizName, selectedCategories, totalTime, Passcode } = req.body;
+
+    // Validate input
+    if (!quizName || !selectedCategories || !totalTime || !Passcode) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Create a new quiz
+    const newQuiz = new Quiz({
       quizName,
       categories: selectedCategories,
       totalTime,
+      passcode: Passcode, // Save the passcode
     });
 
-    await quiz.save();
-    res.status(201).json({ message: 'Quiz created successfully' });
+    await newQuiz.save();
+    res.status(201).json({ message: 'Quiz created successfully', quiz: newQuiz });
   } catch (error) {
-    res.status(500).json({ message: 'Error creating quiz' });
+    console.error('Error creating quiz:', error.message);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 // Delete a quiz by ID
 router.delete('/delete-quiz/:id', async (req, res) => {

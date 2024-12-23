@@ -14,7 +14,7 @@ const LoginPage = () => {
     setSuccessMessage('');
 
     try {
-      const response = await fetch('http://localhost:4000/api/users/login', {
+      const response = await fetch('http://localhost:4000/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const LoginPage = () => {
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">User ID</label>
+            <label htmlFor="username">email</label>
             <input
               type="text"
               id="username"

@@ -122,7 +122,7 @@ const QuestionManagement = () => {
           {quizzes.length > 0 ? (
             quizzes.map((quiz) => (
               <option key={quiz._id} value={quiz._id} className="quizName">
-                {quiz.name}
+                {quiz.quizName}
               </option>
             ))
           ) : (
