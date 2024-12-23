@@ -19,7 +19,9 @@ const App = () => {
     if (location.pathname === '/quiz-page') {
       return <Header2 />;  // Use a different header for the quiz page
       // Use the home-specific header for the home page
-    } else {
+    } else if (location.pathname === '/resultPage' )
+    return <Header2 />; 
+    else {
       return <Header />;  // Default header for other pages
     }
   };

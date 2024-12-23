@@ -25,14 +25,7 @@ const UserPage = () => {
     navigate('/login');
   };
 
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/categories`);
-      setCategories(response.data);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-  };
+ 
 
   const fetchQuizzes = async () => {
     try {
@@ -57,7 +50,6 @@ const UserPage = () => {
   };
 
   useEffect(() => {
-    fetchCategories();
     fetchQuizzes();
   }, []);
 
@@ -76,7 +68,7 @@ const UserPage = () => {
   
         // If successful, redirect to questions page
         const fetchedQuestions = response.data;
-        navigate('/questions', { state: { questions: fetchedQuestions, quizName: selectedQuiz.quizName } });
+        navigate('/quizCard', { state: { questions: fetchedQuestions, quizName: selectedQuiz.quizName } });
       } catch (error) {
         setMessage('Incorrect passcode or failed to fetch questions.');
         console.error('Error fetching questions:', error);

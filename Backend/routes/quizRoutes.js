@@ -69,4 +69,28 @@ router.delete('/delete-quiz/:id', async (req, res) => {
   }
 });
 
+// Endpoint to fetch questions based on passcode
+router.post('/api/quiz/:id/questions', async (req, res) => {
+  const { id } = req.params;
+  const { passcode } = req.body;
+
+  try {
+    const quiz = await Quiz.findById(id);
+
+    if (!quiz) {
+      return res.status(404).json({ message: 'Quiz not found' });
+    }
+
+    // Validate passcode
+    if (quiz.Passcode !== passcode) {
+      return res.status(401).json({ message: 'Incorrect passcode' });
+    }
+
+    // Send back the questions
+    res.status(200).json(quiz.questions);
+  } catch (error) {
+    console.error('Error fetching quiz questions:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 export default router;
