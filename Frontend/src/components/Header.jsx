@@ -56,15 +56,7 @@ export default function Header() {
             Contact
           </NavLink>
         </div>
-<<<<<<< HEAD
-        <div className="one-links">
-          <NavLink className="link" to="/quizPage">
-           Quiz Page
-          </NavLink>
-        </div>
-=======
         
->>>>>>> accd2223da77b9f01344f1705c5d464a77f6e775
         {/* Dynamic Login/Logout Button */}
         {isLoggedIn ? (
           <button className="button1" onClick={handleLogout}>
