@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../styles/adminLogin.css';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState(''); 
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -11,9 +12,9 @@ const LoginPage = () => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
-  
+
     try {
-      const response = await fetch('http://localhost:4000/api/users/login', {
+      const response = await fetch('http://localhost:4000/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,12 +24,12 @@ const LoginPage = () => {
           password,
         }),
       });
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Error: ${response.status} - ${errorText}`);
       }
-  
+
       const data = await response.json();
       setSuccessMessage('Login successful! Redirecting...');
       localStorage.setItem('token', data.token);
@@ -41,40 +42,40 @@ const LoginPage = () => {
       console.error('Error during login:', error);
     }
   };
-  
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-form">
-          <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="username">User ID</label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
-            <button type="submit" className="login-btn">Login</button>
-          </form>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">email</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
+          <button type="submit" className="login-btn">Login</button>
+        </form>
+        <div className="create-account-link">
+          <p>Don't have an account?</p>
+          <Link to="/signup">Create one here</Link>
         </div>
-       
       </div>
     </div>
   );
