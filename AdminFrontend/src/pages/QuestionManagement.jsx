@@ -11,14 +11,17 @@ const QuestionManagement = () => {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [editingQuestion, setEditingQuestion] = useState(null);
 
-  const fetchQuizzes = async () => {
+  const fetchQuestions = async () => {
+    if (!selectedQuizId) return; // Fetch questions only when a quiz is selected
     try {
-      const response = await fetch('http://localhost:4000/api/quizzes');
-      if (!response.ok) throw new Error('Failed to fetch quizzes');
+      const response = await fetch(
+        `http://localhost:4000/api/questions/${selectedQuizId}`
+      );
+      if (!response.ok) throw new Error('Failed to fetch questions');
       const data = await response.json();
-      setQuizzes(data); // Set quizzes to the state
+      setQuestions(data);
     } catch (error) {
-      console.error('Error fetching quizzes:', error);
+      console.error('Error fetching questions:', error);
     }
   };
   
@@ -33,26 +36,21 @@ const QuestionManagement = () => {
       console.error('Error fetching categories:', error);
     }
   };
-  // // Fetch quizzes when the component loads
-  // useEffect(() => {
-  //   fetchQuizzes();
-  // }, []);
+  useEffect(() => {
+    fetchQuizzes(); // Fetch quizzes when the component loads
+  }, []);
   
-
-  // Fetch questions for the selected quiz
-  const fetchQuestions = async () => {
-    if (!selectedQuizId) return; // Fetch questions only when a quiz is selected
+  const fetchQuizzes = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/questions/${selectedQuizId}`
-      );
-      if (!response.ok) throw new Error('Failed to fetch questions');
+      const response = await fetch('http://localhost:4000/api/quizzes'); // Adjust the URL to match your backend endpoint
+      if (!response.ok) throw new Error('Failed to fetch quizzes');
       const data = await response.json();
-      setQuestions(data);
+      setQuizzes(data);
     } catch (error) {
-      console.error('Error fetching questions:', error);
+      console.error('Error fetching quizzes:', error);
     }
   };
+  
 
   const handleAddOrUpdateQuestion = async () => {
     if (!selectedQuizId) {
@@ -133,7 +131,7 @@ const QuestionManagement = () => {
           {quizzes.length > 0 ? (
             quizzes.map((quiz) => (
               <option key={quiz._id} value={quiz._id} className="quizName">
-                {quiz.name}
+                {quiz.quizName}
               </option>
             ))
           ) : (
@@ -201,29 +199,28 @@ const QuestionManagement = () => {
                     <button onClick={() => handleEditQuestion(question)}>
                       <FaEdit />
                     </button>
-                    <button
-                      onClick={async () => {
-                        // Add logic to delete the question
-                        try {
-                          const response = await fetch(
-                            `http://localhost:4000/api/delete-question/${question._id}`,
-                            {
-                              method: 'DELETE',
-                            }
-                          );
-                          if (response.ok) {
-                            alert('Question deleted successfully');
-                            fetchQuestions();
-                          } else {
-                            alert('Failed to delete the question');
-                          }
-                        } catch (error) {
-                          console.error('Error deleting question:', error);
-                        }
-                      }}
-                    >
-                      <FaTrash />
-                    </button>
+                                    <button
+                  onClick={async () => {
+                    try {
+                      const response = await fetch(
+                        `http://localhost:4000/api/delete-question/${question._id}`,
+                        { method: 'DELETE' }
+                      );
+                      if (response.ok) {
+                        alert('Question deleted successfully');
+                        fetchQuestions(); // Refresh question list
+                      } else {
+                        alert('Failed to delete the question');
+                      }
+                    } catch (error) {
+                      console.error('Error deleting question:', error);
+                      alert('Error deleting question');
+                    }
+                  }}
+                >
+                  <FaTrash />
+                </button>
+
                   </td>
                 </tr>
               ))}
