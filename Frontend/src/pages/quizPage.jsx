@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/pagesStyle/quizPage.css';
 
 const UserPage = () => {
@@ -13,69 +13,70 @@ const UserPage = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  // Check if user is authenticated
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      navigate('/login');
+      navigate('/login'); // Redirect to login page if not authenticated
     }
   }, [navigate]);
 
+  // Logout logic
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
 
- 
-
+  // Fetch all quizzes on page load
   const fetchQuizzes = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/quizzes'); // Make sure this endpoint is correct
+      const response = await axios.get('http://localhost:4000/api/quizzes');
       setQuizzes(response.data);
     } catch (error) {
       console.error('Error fetching quizzes:', error);
     }
   };
 
-  const fetchQuestions = async (quizId, enteredPasscode) => {
-    try {
-      const response = await axios.post(`http://localhost:4000/api/quiz/${quizId}/questions`, {
-        passcode: enteredPasscode,
-      });
+  // Example for fetching questions and passing to QuizCard
+const fetchQuestions = async (quizId, enteredPasscode) => {
+  try {
+    const response = await axios.post(`http://localhost:4000/api/quiz/${quizId}/questions`, {
+      passcode: enteredPasscode,
+    });
+    if (response.data && response.data.length > 0) {
       setQuestions(response.data);
       setMessage('');
-    } catch (error) {
-      setMessage('Incorrect passcode or failed to fetch questions.');
-      console.error('Error fetching questions:', error);
+      // Redirect to QuizCard component
+      navigate(`/quiz/${quizId}`, { state: { questions: response.data, quizName: selectedQuiz.quizName } });
+    } else {
+      setMessage('No questions available.');
     }
-  };
+  } catch (error) {
+    setMessage('Incorrect passcode or failed to fetch questions.');
+    console.error('Error fetching questions:', error);
+  }
+};
 
-  useEffect(() => {
-    fetchQuizzes();
-  }, []);
 
+  // Trigger when a user clicks on a quiz
   const handleQuizClick = (quiz) => {
     setSelectedQuiz(quiz);
     setShowPasscodeModal(true);
   };
 
-  const handlePasscodeSubmit = async (e) => {
+  // Handle passcode submission and fetch questions
+  const handlePasscodeSubmit = (e) => {
     e.preventDefault();
     if (selectedQuiz) {
-      try {
-        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/quiz/${selectedQuiz._id}/questions`, {
-          passcode,
-        });
-  
-        // If successful, redirect to questions page
-        const fetchedQuestions = response.data;
-        navigate('/quizCard', { state: { questions: fetchedQuestions, quizName: selectedQuiz.quizName } });
-      } catch (error) {
-        setMessage('Incorrect passcode or failed to fetch questions.');
-        console.error('Error fetching questions:', error);
-      }
+      fetchQuestions(selectedQuiz._id, passcode); // Fetch questions and redirect to the quiz card
       setShowPasscodeModal(false);
     }
   };
+
+  // Load quizzes on page load
+  useEffect(() => {
+    fetchQuizzes();
+  }, []);
 
   return (
     <div>
@@ -101,7 +102,7 @@ const UserPage = () => {
       {showPasscodeModal && (
         <div className="passcode-modal">
           <form onSubmit={handlePasscodeSubmit}>
-            <h3>Enter Passcode for {selectedQuiz.quizName}</h3>
+            <h3>Enter Passcode for {selectedQuiz?.quizName}</h3>
             <input
               type="password"
               value={passcode}
@@ -118,6 +119,7 @@ const UserPage = () => {
         </div>
       )}
 
+      {/* Optionally, you can display questions here, but it's better to navigate to another page */}
       {questions.length > 0 && (
         <div className="questions-container">
           <h3>Questions</h3>

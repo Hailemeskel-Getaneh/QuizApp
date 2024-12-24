@@ -21,7 +21,7 @@ const LoginPage = () => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token); // Store the JWT token
         alert('Login successful!');
-        navigate('/quizPage'); // Redirect to /quizPage
+        navigate('/quiz-page'); // Redirect to /quizPage
       } else {
         alert('Login failed.');
       }
@@ -79,7 +79,7 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
-      <FooterPage/>
+      
     </div>
   );
 };
