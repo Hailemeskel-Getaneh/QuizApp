@@ -11,13 +11,14 @@ import ProtectedRoute from './components/protectedRoute';
 import Header2 from './components/Header2';
 import Result from './pages/resultPage.jsx';
 import FooterPage from './components/Footer.jsx';
+import QuizCard from './components/quizCard.jsx';
 
 const App = () => {
   const location = useLocation();
 
   // Conditionally render the header based on the current path
   const renderHeader = () => {
-    if (location.pathname === '/quiz-page') {
+    if (location.pathname === '/quizPage') {
       return <Header2 />;  // Use a different header for the quiz page
       // Use the home-specific header for the home page
     } else if (location.pathname === '/resultPage' )
@@ -27,7 +28,7 @@ const App = () => {
     }
   };
   const renderFooter = () => {
-    if (location.pathname === '/quiz-page') {
+    if (location.pathname === '/quizPage' ) {
       return  null ;
       
     } else if (location.pathname === '/resultPage' )
@@ -49,8 +50,10 @@ const App = () => {
         <Route path="/login" element={<Login />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/quiz-page" element={<QuizPage />} />
+          <Route path="/quizPage" element={<QuizPage />} />
           <Route path="/Result" element={<Result />} />
+          <Route path="/QuizCard" element={<QuizCard />} />
+          
         </Route>
 
     
