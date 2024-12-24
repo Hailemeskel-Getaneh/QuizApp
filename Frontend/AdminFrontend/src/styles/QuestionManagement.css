@@ -1,0 +1,149 @@
+/* Ensure html and body take full height and allow scrolling */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: auto; /* Allow content overflow if necessary */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.question-management {
+  padding: 20px;
+  min-height: 100vh; /* Ensure it adapts to content height */
+  box-sizing: border-box;
+  background-color: #f4f7fc; /* Soft background color for the page */
+  color: #333; /* Text color */
+}
+
+h2 {
+  text-align: center;
+  color: #4a90e2;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.select-quiz,
+.add-question {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.select-quiz select,
+.add-question input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.select-quiz select:focus,
+.add-question input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.add-question button {
+  padding: 12px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  max-width: 220px;
+  margin: auto;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-question button:hover {
+  background-color: #357abd;
+}
+
+.add-question button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.add-question button + button {
+  background-color: #e74c3c;
+}
+
+.add-question button + button:hover {
+  background-color: #c0392b;
+}
+
+.question-list {
+  margin-top: 30px;
+}
+
+.question-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.question-list th,
+.question-list td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.question-list th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.question-list td {
+  background-color: #fff;
+}
+
+.question-list tr:hover {
+  background-color: #f9f9f9;
+}
+
+.question-list button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4a90e2;
+  font-size: 16px;
+  margin: 0 5px;
+  transition: color 0.3s ease;
+}
+
+.question-list button:hover {
+  color: #357abd;
+}
+
+.quizName{
+  color: black;
+  /* background-color: red; */
+}
+.question-list .action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .select-quiz,
+  .add-question {
+    width: 100%;
+    margin: 0;
+  }
+
+  .add-question button {
+    width: 100%;
+    max-width: none;
+  }
+}

@@ -1,0 +1,54 @@
+.admin-app {
+    display: flex;
+    /* height: 100vh; */
+    overflow: hidden;
+  }
+  
+  .main-content {
+    display: flex;
+    width: 100%;
+  }
+  
+  .page-content {
+    margin-left: 230px;
+padding: 50px 20px 70px;
+    background-color: #f4f4f9;
+    flex: 1;
+  }
+  
+  .sidebar.closed + .page-content {
+    margin-left: 70px;
+  }
+  
+  button {
+    font-size: 1rem;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  @media (max-width: 768px) {
+    .page-content{
+      margin-left: 100px;
+    }
+  }
+  

@@ -1,0 +1,117 @@
+/* General Styles */
+.header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  background: white;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.qution_mark{
+  color: rgb(56, 56, 232);
+  font-size: 70px;
+  font-weight: bold;
+ 
+}
+
+.name {
+  margin-left: 20px;
+  color: rgb(56, 56, 232);
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 70px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 70px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.links.open {
+  display: flex;
+}
+
+.one-links {
+  margin: 0 15px;
+}
+
+.link {
+  color: rgb(56, 56, 232);
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link.active {
+  color: #ff5722;
+  font-weight: bold;
+  border-bottom: 2px solid #ff5722;
+}
+
+.button1 {
+  background-color: rgb(56, 56, 232);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.button1:hover{
+  transform: scale(1.05);
+  background-color: #ff5722;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  margin-right: 20px;
+  font-size: 1.5rem;
+  color: rgb(56, 56, 232);
+
+}
+
+.menu-icon,
+.close-icon {
+  display: inline-block;
+  margin-right: 70px;
+  font-size: 40px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .links {
+    position: absolute;
+    top: 60px;
+    left:250px;
+    background: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    width: 100%;
+    display: none; /* Hidden by default */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .links.open {
+    display: flex; /* Show menu when open */
+  }
+
+  .one-links {
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}

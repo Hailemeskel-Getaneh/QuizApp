@@ -1,0 +1,78 @@
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1a22 0%, #7c8daa 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    transition: width 0.3s ease;
+    margin-top: 80px;
+  }
+  
+  
+  
+  .sidebar .toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .sidebar nav {
+    margin-top: 20px;
+  }
+  
+  .sidebar nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 15px 20px;
+    transition: background 0.3s;
+    font-family: sans-serif;
+  }
+  
+  .sidebar nav a:hover {
+    background-color: #9255d3;
+  }
+  /* Basic Sidebar Styles */
+.sidebar {
+  width: 200px;
+  transition: width 0.3s;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar.closed {
+  width: 80px; /* Smaller width when closed */
+}
+
+.sidebar .sidebar-icon {
+  margin-right: 10px;
+  font-size: 1.5em;
+}
+
+/* Hide text on small screens */
+.sidebar .sidebar-text {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .sidebar .sidebar-text {
+    display: none; /* Hide text on small screens */
+  }
+  
+  .sidebar.open {
+    width: 60px; /* Smaller width on mobile */
+  }
+
+  /* Show only icons in mobile view */
+  .sidebar .sidebar-icon {
+    margin-right: 0;
+    font-size: 1.5em;
+  }
+}

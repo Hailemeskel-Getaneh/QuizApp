@@ -1,0 +1,100 @@
+/* General container styling */
+.help-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 40px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Text styling */
+.text {
+  color: #333;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* Heading styles */
+.help-heading {
+  font-size: 36px;
+  text-align: center;
+  color: #3a3ae8;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+  font-size: 24px;
+  color: #222;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.section p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* List styling */
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+  padding-left: 20px;
+}
+
+ul li {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Link styling */
+.section a {
+  color: #3a3ae8;
+  text-decoration: none;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+/* Footer styling */
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+  color: #777;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .help-container {
+      padding: 15px;
+  }
+
+  .help-heading {
+      font-size: 28px;
+  }
+
+  .section h2 {
+      font-size: 20px;
+  }
+
+  .text, ul li {
+      font-size: 16px;
+  }
+}
