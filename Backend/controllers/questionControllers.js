@@ -1,6 +1,6 @@
 import Question from '../models/questionModel.js';
+import Quiz from '../models/quizModel.js';
 
-// Add a new question
 export const addQuestion = async (req, res) => {
     try {
         const { quizId, questionText, options, correctAnswer } = req.body;
@@ -10,22 +10,38 @@ export const addQuestion = async (req, res) => {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
+        // Create the new question
         const newQuestion = new Question({
             quizId,
-            // categoryId,
             questionText,
             options,
             correctAnswer,
         });
 
-
         await newQuestion.save();
-        res.status(201).json({ message: 'Question added successfully', question: newQuestion });
+
+        // Update the quiz to include the new question's ID
+        const updatedQuiz = await Quiz.findByIdAndUpdate(
+            quizId,
+            { $push: { questions: newQuestion._id } },
+            { new: true }
+        );
+
+        if (!updatedQuiz) {
+            return res.status(404).json({ message: 'Quiz not found' });
+        }
+
+        res.status(201).json({
+            message: 'Question added successfully',
+            question: newQuestion,
+            quiz: updatedQuiz, // Optionally return the updated quiz
+        });
     } catch (error) {
         console.error('Error adding question:', error);
         res.status(500).json({ message: 'Error adding question' });
     }
 };
+
 
 
 // Fetch questions for a specific quiz
