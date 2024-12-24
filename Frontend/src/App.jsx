@@ -47,10 +47,14 @@ const App = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+
         <Route element={<ProtectedRoute />}>
           <Route path="/quiz-page" element={<QuizPage />} />
           <Route path="/Result" element={<Result />} />
         </Route>
+
+    
+
       </Routes>
       {renderFooter()} 
     </div>

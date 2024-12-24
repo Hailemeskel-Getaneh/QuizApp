@@ -14,7 +14,7 @@ const Sidebar = () => {
         </a>
         <a href="quiz-management">
           <FaClipboardList className="sidebar-icon" />
-          <span className="sidebar-text">Quiz</span>
+          <span className="sidebar-text">Quizes</span>
         </a>
         <a href="question-management">
           <FaQuestionCircle className="sidebar-icon" />
@@ -22,11 +22,11 @@ const Sidebar = () => {
         </a>
         <a href="user-management">
           <FaUsers className="sidebar-icon" />
-          <span className="sidebar-text">User</span>
+          <span className="sidebar-text">Users</span>
         </a>
         <a href="catagory-management">
           <FaThList className="sidebar-icon" />
-          <span className="sidebar-text">Category</span>
+          <span className="sidebar-text">Categories</span>
         </a>
         <a href="reports">
           <FaChartLine className="sidebar-icon" />

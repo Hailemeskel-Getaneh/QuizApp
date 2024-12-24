@@ -21,7 +21,7 @@ const LoginPage = () => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token); // Store the JWT token
         alert('Login successful!');
-        navigate('/quiz-page'); // Redirect to /quizPage
+        navigate('/quizPage'); // Redirect to /quizPage
       } else {
         alert('Login failed.');
       }
