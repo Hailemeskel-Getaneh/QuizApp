@@ -1,13 +1,11 @@
-// questionModel.js
-
 import mongoose from 'mongoose';
 
 const questionSchema = new mongoose.Schema({
-  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
-  questionText: { type: String, required: true },
-  options: [{ type: String, required: true }],
-  correctAnswer: { type: String, required: true },
-  timeLimit: { type: Number, default: 30 },  // Time in seconds
+    quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: true },
+    // categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
+    questionText: { type: String, required: true },
+    options: [String],
+    correctAnswer: String,
 });
 
 const Question = mongoose.model('Question', questionSchema);

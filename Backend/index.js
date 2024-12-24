@@ -6,6 +6,8 @@ import userRoutes from './routes/userRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import questionRoutes from './routes/questionRoutes.js';
 import quizRoutes from './routes/quizRoutes.js';
+import loginRoute from './routes/loginRoute.js';
+import sinupRoute from './routes/sinupRoute.js';
 
 const app = express();
 
@@ -72,9 +74,12 @@ app.use('/api', userRoutes); // Prefix user-related routes with `/api/users`
 app.use('/api', categoryRoutes);
 app.use('/api', questionRoutes);
 app.use('/api', quizRoutes);
+ app.use('/api/user', sinupRoute);
+
 
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
 

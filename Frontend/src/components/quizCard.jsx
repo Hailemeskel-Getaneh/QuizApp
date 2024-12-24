@@ -1,54 +1,26 @@
-import React, { useState } from "react";
-import Timer from "./Timer";
+// QuizCard.jsx
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-const Quiz = ({ questions, onSubmit }) => {
-  const [answers, setAnswers] = useState({});
-
-  const handleAnswerChange = (questionId, answer) => {
-    setAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: answer,
-    }));
-  };
-
-  const handleSubmit = () => {
-    onSubmit(answers);
-  };
-
-  const handleTimeUp = () => {
-    alert("Time's up! Submitting your quiz.");
-    handleSubmit();
-  };
+const QuizCard = () => {
+  const { state } = useLocation();
+  const { questions, quizName } = state || {};
 
   return (
     <div>
-      <Timer initialTime={300} onTimeUp={handleTimeUp} /> {/* 5-minute timer */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        {questions.map((question) => (
-          <div key={question.id}>
-            <p>{question.question_text}</p>
-            {Object.entries(question.options).map(([key, option]) => (
-              <div key={key}>
-                <input
-                  type="radio"
-                  name={question.id}
-                  value={key}
-                  onChange={() => handleAnswerChange(question.id, key)}
-                />
-                {option}
-              </div>
-            ))}
+      <h2>{quizName}</h2>
+      {questions && questions.length > 0 ? (
+        questions.map((question, index) => (
+          <div key={index} className="question-card">
+            <p>{question.questionText}</p>
+            {/* Render options and logic for answering questions */}
           </div>
-        ))}
-        <button type="submit">Submit</button>
-      </form>
+        ))
+      ) : (
+        <p>No questions available.</p>
+      )}
     </div>
   );
 };
 
-export default Quiz;
+export default QuizCard;

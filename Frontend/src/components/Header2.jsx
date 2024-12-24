@@ -41,7 +41,11 @@ export default function Header() {
             Home
           </NavLink>
         </div>
-       
+       <div className="one-links">
+                 <NavLink className="link" to="/resultPage">
+                   result
+                 </NavLink>
+               </div>
           <button className="button1" onClick={handleLogout}>
             Logout
           </button>

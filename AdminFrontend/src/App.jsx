@@ -15,7 +15,7 @@ import Sidebar from "./components/adminSidebar";
 import "./styles/adminStyles.css";
 import "./styles/adminStyles.css"; // Ensure the CSS file is imported
 import LoginPage from "./pages/adminLogin.jsx";
-
+import Signup from "./pages/signup.jsx";
 
 const App = () => {
  
@@ -31,6 +31,7 @@ const App = () => {
         <div className="page-content">
           <Routes>
             <Route path="/" element={<LoginPage />} />
+            <Route path="/Signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/quiz-management" element={<QuizManagement />} />
             <Route path="/question-management" element={<QuestionManagement />} />
