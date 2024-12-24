@@ -14,7 +14,7 @@ const Sidebar = () => {
         </a>
         <a href="quiz-management">
           <FaClipboardList className="sidebar-icon" />
-          <span className="sidebar-text">Quizes</span>
+          <span className="sidebar-text">Quizzes</span>
         </a>
         <a href="question-management">
           <FaQuestionCircle className="sidebar-icon" />
