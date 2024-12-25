@@ -8,6 +8,8 @@ import questionRoutes from './routes/questionRoutes.js';
 import quizRoutes from './routes/quizRoutes.js';
 import loginRoute from './routes/loginRoute.js';
 import sinupRoute from './routes/sinupRoute.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
+import quizResultRoutes from './routes/quizResultRoutes.js'
 
 const app = express();
 
@@ -36,47 +38,14 @@ mongoose
     process.exit(1); // Exit the application if the database connection fails
   });
 
-
-
-// Mock data for dashboard
-const dashboardStats = {
-    users: 120,
-    quizzes: 45,
-    attempts: 320,
-    passRate: 85,
-  };
-  
-  // Mock data for user growth
-  const userGrowthData = {
-    dates: ['Jan', 'Feb', 'Mar'],
-    users: [120, 130, 150],
-  };
-  
-  // Mock data for quiz performance
-  const quizPerformanceData = {
-    quizzes: ['Quiz 1', 'Quiz 2', 'Quiz 3'],
-    scores: [75, 85, 95],
-  };
-  
-  app.get('/api/dashboard-stats', (req, res) => {
-    res.json(dashboardStats);
-  });
-  
-  app.get('/api/user-growth', (req, res) => {
-    res.json(userGrowthData);
-  });
-  
-  app.get('/api/quiz-performance', (req, res) => {
-    res.json(quizPerformanceData);
-  });
 // Routes
 app.use('/api', userRoutes); // Prefix user-related routes with `/api/users`
 app.use('/api', categoryRoutes);
 app.use('/api', questionRoutes);
 app.use('/api', quizRoutes);
- app.use('/api/user', sinupRoute);
-
-
+app.use('/api/user', sinupRoute);
+app.use('/api', dashboardRoutes)
+app.use('/api', quizResultRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);

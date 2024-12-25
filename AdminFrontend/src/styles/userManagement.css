@@ -20,21 +20,21 @@
     margin-top: 20px;
   }
   
-  .user-management .user-table th,
-  .user-management .user-table td {
-    padding: 10px 15px;
+  .user-management-container .user-table th,
+  .user-management-container .user-table td {
+    padding: 8px 20px;
     text-align: left;
-    border: 1px solid #ddd;
+    border: 0.91px solid #ddd;
   }
   
-  .user-management .user-table th {
-    background-color: #3498db;
-    color: #fff;
+  .user-management-container .user-table th {
+    background-color: #28638a;
+    color: #fffafa;
     font-weight: bold;
   }
   
-  .user-management .user-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+  .user-management-container .user-table tr:nth-child(even) {
+    background-color: #fbfbfb;
   }
   
   .user-management .user-table tr:hover {
@@ -122,7 +122,7 @@
   }
   
   .user-table tr:hover {
-    background-color: #dbd6d6;
+    background-color: #eee6e6;
   }
   
   .user-table td button {

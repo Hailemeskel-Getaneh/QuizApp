@@ -1,6 +1,24 @@
-.quiz-management {
+
+  .quiz-management {
+    margin: 0 auto; /* Center the component on the page */
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;  /*Add some padding for spacing */
+    background-color: #f9f9f9; /* Light background for better readability */
+    border: 1px solid #ddd; /* Add a subtle border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .create-quiz, .quiz-list {
+    margin-bottom: 20px; /* Add spacing between sections */
+  }
+  
+  h2, h3 {
+    text-align: center; /* Center align headings */
+  }
+  
+  button {
+    margin-top: 10px; /* Add space above buttons */
   }
   
   h2 {
@@ -12,10 +30,12 @@
   }
   
   .create-quiz {
-    margin: 20px 0;
+    width: 900px; /* Set the desired width */
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
+
   }
   
   .create-quiz input,

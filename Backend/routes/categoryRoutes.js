@@ -65,7 +65,7 @@ router.put('/update-category/:categoryId', async (req, res) => {
       return res.status(404).json({ message: 'Category not found' });
     }
 
-    console.log(`Category updated: ${categoryId}`);
+    // console.log(`Category updated: ${categoryId}`);
     res.status(200).json({ message: 'Category updated successfully', updatedCategory });
   } catch (error) {
     console.error(`Error updating category (${categoryId}):`, error);
