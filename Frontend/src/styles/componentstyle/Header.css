@@ -35,6 +35,9 @@
   margin-right: 70px;
   transition: transform 0.3s ease-in-out;
 }
+#log{
+  margin-right: 100px;
+}
 
 .links.open {
   display: flex;

@@ -36,22 +36,15 @@ export default function Header() {
 
       {/* Navigation Links */}
       <div className={`links ${isMenuOpen ? 'open' : ''}`}>
-        <div className="one-links">
-          <NavLink className="link" to="/" exact>
-            Home
-          </NavLink>
-        </div>
-       <div className="one-links">
-                 <NavLink className="link" to="/resultPage">
-                   result
-                 </NavLink>
+        
+       
                </div>
-          <button className="button1" onClick={handleLogout}>
+          <button className="button1" id="log" onClick={handleLogout}>
             Logout
           </button>
         
       
       </div>
-    </div>
+    
   );
 }

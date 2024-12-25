@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/pagesStyle/quizCard.css';
-import QuizTimer from '../components/QuizTimer.jsx'; // Importing the timer component
+import QuizTimer from '../components/QuizTimer.jsx';
 import axios from 'axios'; // Assuming you're using axios for API calls
 
 const QuizCard = () => {
   const { state } = useLocation();
   const { questions, quizName, quizId } = state || {}; // Include quizId from state
-  const [currentPage, setCurrentPage] = useState(0); // Track current page index
-  const [answers, setAnswers] = useState({}); // Track user answers
-  const [quizCompleted, setQuizCompleted] = useState(false); 
-  const [totalTime, setTotalTime] = useState(60); // Track quiz duration from the database
+  const [currentPage, setCurrentPage] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [totalTime, setTotalTime] = useState(60);
 
-  const QUESTIONS_PER_PAGE = 2; // Number of questions per page
+  const QUESTIONS_PER_PAGE = 2;
 
-  // Fetch totalTime from the database
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        const response = await axios.get(`/api/quizzes/${quizId}`); // Replace with your API endpoint
+        const response = await axios.get(`/api/quizzes/${quizId}`);
         setTotalTime(response.data.totalTime * 60); // Convert minutes to seconds
       } catch (error) {
         console.error('Error fetching quiz data:', error);
@@ -53,7 +52,7 @@ const QuizCard = () => {
     let score = 0;
     questions.forEach((question, index) => {
       if (answers[index] === question.correctAnswer) {
-        score += 1; // Increment score for each correct answer
+        score += 1;
       }
     });
     return score;
@@ -61,54 +60,47 @@ const QuizCard = () => {
 
   const getUserId = () => {
     const token = localStorage.getItem('authToken');
-    console.log('Token in localStorage:', token);  // Log token to verify it exists
     if (token) {
       try {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));  // Decode the payload of the token
-        console.log('Decoded token:', decodedToken);  // Check decoded token
-        return decodedToken.userId;  // Return userId if present
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
+        return decodedToken.userId;
       } catch (error) {
         console.error('Error decoding token:', error);
         return null;
       }
-    } else {
-      console.log('User is not logged in, token not found');
-      return null;  // Return null if no token found
     }
+    return null;
   };
-  
-  
-  
 
-  // Handle quiz submission
   const handleSubmit = async () => {
     setQuizCompleted(true);
-    const score = calculateScore(); // Calculate the score when the quiz is submitted
-    console.log('User answers:', answers);
-    console.log('Calculated score:', score);
+    const score = calculateScore();
 
-    // Get the logged-in user's ID
     const userId = getUserId();
     if (!userId) {
       alert('User not logged in!');
       return;
     }
 
-    // Send answers and score to the backend
     try {
-      await axios.post(`/api/quizzes/${quizId}/submit`, {
+      // Submit the score to the backend
+      await axios.post('/api/leaderboard', {
         userId,
-        answers,
         score,
         quizId,
+        username: 'John Doe', // Replace with actual username from user data
       });
+
+      // Optionally, fetch the leaderboard after submitting
+      const leaderboardResponse = await axios.get(`/api/leaderboard/${quizId}`);
+      console.log('Leaderboard:', leaderboardResponse.data);
+
       alert('Quiz submitted successfully!');
     } catch (error) {
       console.error('Error submitting quiz:', error);
     }
   };
 
-  // Get questions for the current page
   const currentQuestions = questions?.slice(
     currentPage * QUESTIONS_PER_PAGE,
     (currentPage + 1) * QUESTIONS_PER_PAGE
@@ -168,7 +160,6 @@ const QuizCard = () => {
                   </div>
                 );
               })}
-              {/* Navigation buttons */}
               <div className="quiz-navigation">
                 <button
                   className="quiz-button"
@@ -198,8 +189,3 @@ const QuizCard = () => {
 };
 
 export default QuizCard;
-
-
-
-
-
