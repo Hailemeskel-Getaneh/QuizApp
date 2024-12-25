@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/pagesStyle/quizCard.css';
-import QuizTimer from '../components/QuizTimer.jsx'; // Importing the timer component
+import QuizTimer from '../components/QuizTimer.jsx';
 import axios from 'axios'; // Assuming you're using axios for API calls
 
 const QuizCard = () => {
@@ -37,7 +37,7 @@ const QuizCard = () => {
     let score = 0;
     questions.forEach((question, index) => {
       if (answers[index] === question.correctAnswer) {
-        score += 1; // Increment score for each correct answer
+        score += 1;
       }
     });
     return score;
@@ -54,14 +54,19 @@ const QuizCard = () => {
         answers,
         score,
         quizId,
+        username: 'John Doe', // Replace with actual username from user data
       });
+
+      // Optionally, fetch the leaderboard after submitting
+      const leaderboardResponse = await axios.get(`/api/leaderboard/${quizId}`);
+      console.log('Leaderboard:', leaderboardResponse.data);
+
       alert('Quiz submitted successfully!');
     } catch (error) {
       console.error('Error submitting quiz:', error);
     }
   };
 
-  // Get questions for the current page
   const currentQuestions = questions?.slice(
     currentPage * QUESTIONS_PER_PAGE,
     (currentPage + 1) * QUESTIONS_PER_PAGE
@@ -119,7 +124,6 @@ const QuizCard = () => {
                   </div>
                 );
               })}
-              {/* Navigation buttons */}
               <div className="quiz-navigation">
                 <button
                   className="quiz-button"

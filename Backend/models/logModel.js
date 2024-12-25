@@ -31,3 +31,4 @@ signUpSchema.methods.comparePassword = async function (inputPassword) {
 // Use `mongoose.models` to check if the model is already compiled
 const SignUp = mongoose.models.SignUp || mongoose.model('SignUp', signUpSchema);
 export default SignUp;
+

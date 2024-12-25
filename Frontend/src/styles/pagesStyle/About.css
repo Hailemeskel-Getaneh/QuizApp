@@ -1,34 +1,101 @@
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+/* General styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  background-color: #f7f7f7;
+  color: #333;
+  font-size: 16px;
+}
+
+/* About Page Styling */
+.about-container {
+  background-color: #fff;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.about-heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #4caf50;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-paragraph {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.features-heading {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #4caf50;
+}
+
+.features-list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.features-list li {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  line-height: 1.8;
+  transition: transform 0.3s ease;
+}
+
+.features-list li:hover {
+  transform: translateX(10px);
+}
+
+.features-list li svg {
+  margin-right: 10px;
+}
+
+/* Hover effect for the list items */
+.features-list li {
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.features-list li:hover {
+  color: #4caf50;
+}
+
+@media (max-width: 768px) {
+  .about-container {
     padding: 20px;
-    margin-top: 40px;
-    font-family: Arial, sans-serif;
   }
-  
-  .heading {
-    font-size: 36px;
-    color: rgb(56, 56, 232);
-    text-align: center;
+
+  .about-heading {
+    font-size: 2rem;
   }
-  #paragraph{
-    color: #000;
+
+  .about-paragraph {
+    font-size: 1rem;
   }
-  .paragraph {
-    color: #000;
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 20px;
+
+  .features-heading {
+    font-size: 1.2rem;
   }
-  
-  .list {
-    padding-left: 20px;
-  }
-  
-  .footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 16px;
-    color: #777;
-  }
-  
+}
