@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/pagesStyle/contact.css';
 // import axios from 'axios';
-import FooterPage from '../components/Footer'
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -99,7 +99,7 @@ const ContactPage = () => {
         <button type="submit" className="submit-button">Send Message</button>
         {successMessage && <p className="success">{successMessage}</p>}
       </form>
-      <FooterPage/>
+      
     </div>
     
   );

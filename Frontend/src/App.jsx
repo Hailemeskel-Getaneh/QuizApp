@@ -15,12 +15,13 @@ import QuizCard from './components/quizCard.jsx';
 import QuizList from './components/quizList';
 import ResultCard from './components/resultCard';
 
+
 const App = () => {
   const location = useLocation();
 
   // Conditionally render the header based on the current path
   const renderHeader = () => {
-    if (location.pathname === '/quiz-page') {
+    if (location.pathname === '/quizPage') {
       return <Header2 />;  // Use a different header for the quiz page
       // Use the home-specific header for the home page
     } else if (location.pathname === '/resultPage' )
@@ -30,7 +31,11 @@ const App = () => {
     }
   };
   const renderFooter = () => {
+
+    if (location.pathname === '/quizPage' ) {
+
     if (location.pathname === '/quiz-page') {
+
       return  null ;
       
     } else if (location.pathname === '/resultPage' )
@@ -50,17 +55,33 @@ const App = () => {
         <Route path="/help" element={<Help />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/quizPage" element={<QuizPage />} />
+
         <Route element={<ProtectedRoute />}>
           <Route path="/quiz-page" element={<QuizPage />} />
+
           <Route path="/Result" element={<Result />} />
+          <Route path="/QuizCard" element={<QuizCard />} />
+          
         </Route>
+
+
+    
+
+      </Routes>
+      {renderFooter()} 
+
         <Route path="/quizzes" element={<QuizList />} />
         <Route path="/quiz/:id" element={<QuizCard />} />
         <Route path="/quiz/result/:score" element={<ResultCard />} />
 
 
-      </Routes>
-      {renderFooter()} Route
+      
+      {renderFooter()} 
+
     </div>
   );
 };

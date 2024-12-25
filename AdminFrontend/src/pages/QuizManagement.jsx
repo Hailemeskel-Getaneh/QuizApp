@@ -190,6 +190,18 @@ const QuizManagement = () => {
           onChange={(e) => setTotalTime(e.target.value)}
           margin="normal"
         />
+<<<<<<< HEAD
+
+        <input
+          type="String"
+          value={Passcode}
+          onChange={(e) => setPasscode(e.target.value)}
+          placeholder="enter pass code"
+        />
+        <button onClick={handleCreateQuiz}>Create Quiz</button>
+
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
 
         <TextField
           label="Passcode"
@@ -208,11 +220,55 @@ const QuizManagement = () => {
         >
           {isEditing ? 'Update Quiz' : 'Create Quiz'}
         </Button>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
       </div>
 
       {/* Quiz List */}
       <div className="quiz-list">
         <h3>Existing Quizzes</h3>
+<<<<<<< HEAD
+
+        <table>
+          <thead>
+            <tr>
+              <th>Quiz Name</th>
+              <th>Categories</th>
+              <th>Total Time</th>
+              <th>Passcode</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {quizzes.length > 0 ? (
+              quizzes.map((quiz) => (
+                <tr key={quiz._id}>
+                  <td>{quiz.quizName}</td>
+                  <td>{quiz.categories.map((cat) => cat.name).join(', ')}</td>
+                  <td>{quiz.totalTime} minutes</td>
+                  <td>{quiz.passcode} </td>
+                  <td>
+                    <button onClick={() => alert('Edit functionality to be implemented')}>
+                      <FaEdit /> Edit
+                    </button>
+                    <button onClick={() => handleDeleteQuiz(quiz._id)}>
+                      <FaTrash /> Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">No quizzes available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -267,6 +323,10 @@ const QuizManagement = () => {
             </TableBody>
           </Table>
         </TableContainer>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
       </div>
     </div>
   );

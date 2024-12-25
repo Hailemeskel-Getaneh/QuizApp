@@ -1,3 +1,41 @@
+<<<<<<< HEAD
+.quiz-card {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .question-item {
+    margin-bottom: 20px;
+  }
+  
+  .options {
+    margin-top: 10px;
+  }
+  
+  .option-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+=======
 /* Center and align the quiz container */
 body {
     font-family: 'Roboto', Arial, sans-serif;
@@ -212,4 +250,5 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
   
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
   
