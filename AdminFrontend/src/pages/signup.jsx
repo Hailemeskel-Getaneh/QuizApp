@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'; // Use navigate hook from 
 import axios from 'axios'; // Import axios to send HTTP requests
 import '../styles/signup.css';
 
-const CreateAccountPage = () => {
+const SignupPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -12,38 +12,37 @@ const CreateAccountPage = () => {
     const navigate = useNavigate(); // To navigate after success
   
     // Function to handle form submission
-    async function buttonHandler(e) {
-      e.preventDefault();
-  
-      // Check if passwords match
-      if (password !== confirmPassword) {
-        setError("Passwords do not match"); // Set error message if passwords don't match
-        setTimeout(() => setError(""), 4000); // Clear error message after 4 seconds
-        return; // Exit function if passwords don't match
-      }
-  
-      try {
-        const response = await axios.post("http://localhost:4000/api/register", {
-          email,
-          password
-        });
-        console.log(response.data);
-        setSuccessMessage("Registration successful! Redirecting...");
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 2000); // Navigate to Login page after 2 seconds
-      } catch (err) {
-        setError(err.response.data.message);
-        setTimeout(() => setError(""), 4000); // Clear error message after 4 seconds
-      }
+    async function handleSignup(e) {
+        e.preventDefault();
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            setError("Passwords do not match");
+            setTimeout(() => setError(""), 4000); // Clear error message after 4 seconds
+            return;
+        }
+
+        try {
+            const response = await axios.post("http://localhost:4000/api/register", {
+                email,
+                password
+            });
+            console.log(response.data);
+            setSuccessMessage("Registration successful! Redirecting...");
+            setTimeout(() => {
+                navigate("/logging"); // Redirect to Login page
+            }, 2000);
+        } catch (err) {
+            setError(err.response?.data?.message || "Something went wrong");
+            setTimeout(() => setError(""), 4000); // Clear error message after 4 seconds
+        }
     }
       
-      
     return (
-        <div className="create-account-container">
-            <div className="create-account-form">
-                <h2>Create Account</h2>
-                <form onSubmit={buttonHandler}> {/* Use buttonHandler instead of handleSubmit */}
+        <div className="form-container">
+            <div className="form">
+                <h2>Signup</h2>
+                <form onSubmit={handleSignup}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
@@ -74,16 +73,16 @@ const CreateAccountPage = () => {
                             required
                         />
                     </div>
-                    {error && <p className="error-message">{error}</p>} {/* Fix error message */}
+                    {error && <p className="error-message">{error}</p>}
                     {successMessage && <p className="success-message">{successMessage}</p>}
-                    <button type="submit" className="create-account-btn">Create Account</button>
+                    <button type="submit" className="form-btn">Signup</button>
                 </form>
-                <div className="login-link">
-                    <p>Already have an account? <Link to="/">Login here</Link></p>
+                <div className="redirect-link">
+                    <p>Already have an account? <Link to="/logging">Login here</Link></p>
                 </div>
             </div>
         </div>
     );
 };
 
-export default CreateAccountPage;
+export default SignupPage;

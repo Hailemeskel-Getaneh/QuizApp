@@ -10,7 +10,7 @@ const QuizCard = () => {
   const [currentPage, setCurrentPage] = useState(0); // Track current page index
   const [answers, setAnswers] = useState({}); // Track user answers
   const [quizCompleted, setQuizCompleted] = useState(false); 
-  const [totalTime, setTotalTime] = useState(60); // Track quiz duration from the database
+  const [totalTime, setTotalTime] = useState(null); // Track quiz duration from the database
 
   const QUESTIONS_PER_PAGE = 2; // Number of questions per page
 
