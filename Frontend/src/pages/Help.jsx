@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/pagesStyle/help.css';  // Importing the CSS file
-import FooterPage from '../components/Footer'
+
 const HelpPage = () => {
   return (
     <div className="help-container">
@@ -34,7 +34,7 @@ const HelpPage = () => {
         <p className='text'>If you have any issues or questions, feel free to reach out to us at <a href="mailto:support@quizapp.com">support@quizapp.com</a>.</p>
       </section>
 
-     <FooterPage/>
+    
     </div>
   );
 };

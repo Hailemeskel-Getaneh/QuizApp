@@ -21,9 +21,7 @@ const AboutPage = () => {
       <p className="paragraph">
         Our mission is to provide a platform where learning meets entertainment, ensuring users enjoy their journey while acquiring new knowledge. Stay curious, keep quizzing, and see how you compare with others on the leaderboard!
       </p>
-      <footer className="footer">
-        <p>Created with ❤️ by QuizApp Team</p>
-      </footer>
+      
     </div>
   );
 };

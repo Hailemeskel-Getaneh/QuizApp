@@ -1,99 +1,60 @@
 .footer {
-    width: 100%;
-    background-color: #f9f8f8;
-    color: rgb(13, 6, 6);
-    padding: 20px;
-    display: flex;
-    max-height: 40px;
-    justify-content: space-between;
-    align-items: flex-start;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    bottom: 0;
-    z-index: 100;
-  }
-  
-  .footer-left {
-    flex: 1;
-    margin-left: 20px;
-  }
-  
-  .footer-left h3 {
-    margin: 0;
-    font-size: 18px;
-    color: rgb(56, 56, 232);
-  }
-  
-  .footer-left p {
-    margin: 5px 0 0;
-    font-size: 14px;
-    color: #fff;
-  }
-  
-  .footer-links {
-    display: flex;
-    gap: 15px;
+  background-color: white;
+  color: black;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.footer-info {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #0077b5; /* LinkedIn blue as hover effect */
+}
+
+.social-icon:first-child:hover {
+  color: gray; /* Facebook blue */
+}
+
+.social-icon:last-child:hover {
+  color: #0088cc; /* Telegram blue */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
     align-items: center;
   }
-  
-  .footer-link {
-    text-decoration: none;
-    font-size: 16px;
-    color: white;
-    transition: color 0.3s ease;
-  }
-  
-  .footer-link:hover {
-    color: #ffa500;
-  }
-  
-  .footer-rights {
-    margin-right: 20px;
-    font-size: 14px;
-    text-align: right;
-  }
 
-  .footer-info p {
-    display: flex;            /* Enable Flexbox */
-    justify-content: center; 
-    width: 100%;
-    text-align: center; 
-    margin-left: 300px;
-    
-    font-size: 14px;
-    color: rgb(6, 2, 2);
-    margin-top: 10px; 
+  .footer-social {
+    margin-top: 10px;
   }
-     p{
-        text-align: center;
-     }
-  
-  @media (max-width: 768px) {
-    .footer-info {
-      font-size: 12px; 
-      margin-top: 15px;
-    }
-  }
-  
-  
-  @media (max-width: 768px) {
-    .footer {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 20px;
-    }
-  
-    .footer-left {
-      margin-bottom: 10px;
-    }
-  
-    .footer-links {
-      margin-bottom: 10px;
-    }
-  
-    .footer-rights {
-      text-align: left;
-      margin-right: 0;
-    }
-  }
-  
+}
