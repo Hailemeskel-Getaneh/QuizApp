@@ -1,6 +1,6 @@
 .footer {
-  background-color: #222;
-  color: #fff;
+  background-color: white;
+  color: black;
   padding: 20px 10px;
   display: flex;
   justify-content: center;
@@ -29,7 +29,7 @@
 }
 
 .social-icon {
-  color: #fff;
+  color: black;
   font-size: 20px;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -40,7 +40,7 @@
 }
 
 .social-icon:first-child:hover {
-  color: #4267B2; /* Facebook blue */
+  color: gray; /* Facebook blue */
 }
 
 .social-icon:last-child:hover {

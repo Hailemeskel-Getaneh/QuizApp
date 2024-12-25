@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../styles/pagesStyle/quizPage.css';
 
 const UserPage = () => {
+  const [categories, setCategories] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [questions, setQuestions] = useState([]);
   const [showPasscodeModal, setShowPasscodeModal] = useState(false);
   const [passcode, setPasscode] = useState('');
   const [message, setMessage] = useState('');
@@ -32,27 +34,16 @@ const UserPage = () => {
     navigate('/login');
   };
 
-<<<<<<< HEAD
-  const fetchQuizzes = async () => {
-    try {
-      const response = await axios.get('http://localhost:4000/api/quizzes'); // Adjust endpoint as necessary
-=======
   // Fetch all quizzes on page load
   const fetchQuizzes = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/quizzes');
->>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
       setQuizzes(response.data);
     } catch (error) {
       console.error('Error fetching quizzes:', error);
     }
   };
 
-<<<<<<< HEAD
-  useEffect(() => {
-    fetchQuizzes();
-  }, []);
-=======
 
   
   // Example for fetching questions and passing to QuizCard
@@ -76,7 +67,6 @@ const fetchQuestions = async (quizId, enteredPasscode) => {
   }
 };
 
->>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
 
   // Trigger when a user clicks on a quiz
   const handleQuizClick = (quiz) => {
@@ -88,25 +78,7 @@ const fetchQuestions = async (quizId, enteredPasscode) => {
   const handlePasscodeSubmit = (e) => {
     e.preventDefault();
     if (selectedQuiz) {
-<<<<<<< HEAD
-      try {
-        const response = await axios.post(
-          `http://localhost:4000/api/quiz/${selectedQuiz._id}/validate-passcode`,
-          { passcode }
-        );
-
-        if (response.data.success) {
-          navigate('/quizCard', { state: { quiz: selectedQuiz } });
-        } else {
-          setMessage('Incorrect passcode.');
-        }
-      } catch (error) {
-        setMessage('Error validating passcode.');
-        console.error('Error validating passcode:', error);
-      }
-=======
       fetchQuestions(selectedQuiz._id, passcode); // Fetch questions and redirect to the quiz card
->>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
       setShowPasscodeModal(false);
     }
   };
@@ -149,19 +121,13 @@ const fetchQuestions = async (quizId, enteredPasscode) => {
               placeholder="Enter passcode"
             />
             <button type="submit">Submit</button>
-            <button
-              type="button"
-              className="cancel-button"
-              onClick={() => setShowPasscodeModal(false)}
-            >
-              Cancel
-            </button>
+            <Link to="/login">
+              <button type="button" className="cancel-button">Cancel</button>
+            </Link>
           </form>
           {message && <p>{message}</p>}
         </div>
       )}
-<<<<<<< HEAD
-=======
 
       {/* Optionally, you can display questions here, but it's better to navigate to another page */}
       {questions.length > 0 && (
@@ -174,7 +140,6 @@ const fetchQuestions = async (quizId, enteredPasscode) => {
           ))}
         </div>
       )}
->>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
     </div>
   );
 };

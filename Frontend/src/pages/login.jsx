@@ -35,7 +35,7 @@ const LoginPage = () => {
         alert('Login successful!');
         
         // Redirect to the quiz page
-        navigate('/quiz-page');
+        navigate('/quizPage');
       } else {
         alert('Login failed.');
       }
@@ -89,10 +89,7 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
-<<<<<<< HEAD
-      
-=======
->>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
+
     </div>
   );
 };
