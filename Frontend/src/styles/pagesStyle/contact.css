@@ -1,7 +1,7 @@
 .contact-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding:  100px;
     font-family: Arial, sans-serif;
     color: #1A2E49;
     margin-top: 40px;
@@ -11,7 +11,7 @@
   }
   h2 {
     margin-bottom: 20px;
-    font-size: 36px;
+    font-size: 26px;
     color: #1A2E49;
   }
   

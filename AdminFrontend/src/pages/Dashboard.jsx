@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '../styles/Dashborad.css'
+import '../styles/Dashborad.css';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -9,26 +9,40 @@ const Dashboard = () => {
     passRate: 0,
   });
 
-  // Fetching stats data from backend or any data source
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Fetching stats data from backend
   const fetchDashboardStats = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/dashboard-stats');
-      if (!response.ok) throw new Error('Failed to fetch dashboard stats');
+      const response = await fetch("http://localhost:4000/api/dashboard-stats");
+      if (!response.ok) throw new Error("Failed to fetch dashboard stats");
       const data = await response.json();
       setStats({
-        users: data.users,
-        quizzes: data.quizzes,
-        attempts: data.attempts,
-        passRate: data.passRate,
+        users: data.users || 0,
+        quizzes: data.quizzes || 0,
+        attempts: data.attempts || 0,
+        passRate: data.passRate || 0,
       });
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching dashboard stats:", error);
+      setError("Failed to load data. Please try again.");
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchDashboardStats();
   }, []);
+
+  if (loading) {
+    return <div className="dashboard">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="dashboard">{error}</div>;
+  }
 
   return (
     <div className="dashboard">
@@ -62,7 +76,6 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    
   );
 };
 

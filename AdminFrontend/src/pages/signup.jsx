@@ -23,7 +23,7 @@ const CreateAccountPage = () => {
       }
   
       try {
-        const response = await axios.post("http://localhost:4000/api/user/register", {
+        const response = await axios.post("http://localhost:4000/api/register", {
           email,
           password
         });

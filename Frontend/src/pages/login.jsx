@@ -1,27 +1,41 @@
 import React, { useState } from 'react';
 import '../styles/pagesStyle/login.css';
-import { Link, useNavigate } from 'react-router-dom';
-// import axios from '../components/axios_instance.jsx';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({ userId: '', password: '' });
   const navigate = useNavigate();
 
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoginData(prevData => ({ ...prevData, [name]: value }));
+    setLoginData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Handle form submit and login
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Make the API call to the backend for login
       const response = await axios.post('http://localhost:4000/api/users/login', loginData);
+
       if (response.status === 200) {
-        localStorage.setItem('token', response.data.token); // Store the JWT token
+        // Save the JWT token to localStorage
+        localStorage.setItem('token', response.data.token);
+
+        // Debugging: Check if loginData.userId is being set correctly
+        console.log('User ID to be saved:', loginData.userId);
+        
+        // Save userId to localStorage
+        localStorage.setItem('userId', loginData.userId); // Save userId to localStorage
+
+        console.log('Token and userId saved to localStorage');
+        
         alert('Login successful!');
-        navigate('/quizPage'); // Redirect to /quizPage
+        
+        // Redirect to the quiz page
+        navigate('/quiz-page');
       } else {
         alert('Login failed.');
       }
@@ -34,7 +48,6 @@ const LoginPage = () => {
       }
     }
   };
-  
 
   return (
     <div className="login-page">
@@ -64,22 +77,22 @@ const LoginPage = () => {
                 required
               />
             </div>
-       
             <button type="submit" className="login-btn">Login</button>
           </form>
         </div>
         <div className="vertical-line"></div>
         <div className="description">
           <h2>About the Quiz App</h2>
-          <p>
-            The quiz app is simple and intuitive with its own set of rules.
-          </p>
+          <p>The quiz app is simple and intuitive with its own set of rules.</p>
           <p>
             Enter your user ID and default password, click the login button, and navigate to the dashboard to start answering quiz questions.
           </p>
         </div>
       </div>
+<<<<<<< HEAD
       
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
     </div>
   );
 };

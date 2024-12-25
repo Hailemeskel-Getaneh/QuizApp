@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
-import { TextField, Button, Select, MenuItem, InputLabel, FormControl, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@mui/material';
 import '../styles/QuizManagement.css';
 
 const QuizManagement = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [quizName, setQuizName] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [totalTime, setTotalTime] = useState(30);
-  const [Passcode, setPasscode] = useState('');
+  const [passcode, setPasscode] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [editQuizId, setEditQuizId] = useState('');
 
   // Fetch existing quizzes
   const fetchQuizzes = async () => {
@@ -37,19 +53,19 @@ const QuizManagement = () => {
 
   // Handle quiz creation
   const handleCreateQuiz = async () => {
-    const data = { quizName, selectedCategories, totalTime, Passcode };
+    const data = { quizName, categories: [selectedCategory], totalTime, passcode };
     try {
       const response = await fetch('http://localhost:4000/api/create-quiz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-  
+
       if (response.ok) {
         alert('Quiz created successfully');
         fetchQuizzes();
         setQuizName('');
-        setSelectedCategories([]);
+        setSelectedCategory('');
         setTotalTime(30);
         setPasscode('');
       } else {
@@ -61,7 +77,7 @@ const QuizManagement = () => {
       alert('Error creating quiz');
     }
   };
-  
+
   // Handle quiz deletion
   const handleDeleteQuiz = async (quizId) => {
     try {
@@ -81,18 +97,44 @@ const QuizManagement = () => {
     }
   };
 
-  // Update selected categories
+  // Handle quiz editing
+  const handleEditQuiz = async () => {
+    const data = { quizName, categories: [selectedCategory], totalTime, passcode };
+    try {
+      const response = await fetch(`http://localhost:4000/api/edit-quiz/${editQuizId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+  
+      if (response.ok) {
+        const updatedQuiz = await response.json();
+        alert('Quiz updated successfully');
+        fetchQuizzes();
+        setIsEditing(false);
+        setEditQuizId('');
+        setQuizName('');
+        setSelectedCategory('');
+        setTotalTime(30);
+        setPasscode('');
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to update quiz: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error updating quiz:', error);
+      alert('Error updating quiz');
+    }
+  };
+  
+  // Update selected category
   const handleCategoryChange = (event) => {
-    const { value } = event.target;
-    setSelectedCategories(value);
+    setSelectedCategory(event.target.value);
   };
 
-  // Function to get category names based on selected category IDs
-  const getCategoryNames = (categoryIds) => {
-    return categoryIds.map(id => {
-      const category = categories.find(cat => cat._id === id);
-      return category ? category.name : 'Unknown';
-    }).join(', ');
+  // Get category names based on IDs
+  const getCategoryNames = (categories) => {
+    return categories.map((category) => category.name).join(', ');
   };
 
   useEffect(() => {
@@ -116,18 +158,19 @@ const QuizManagement = () => {
         />
 
         <FormControl fullWidth margin="normal">
-          <InputLabel>Categories</InputLabel>
+          <InputLabel>Category</InputLabel>
           <Select
-            multiple
-            value={selectedCategories}
+            value={selectedCategory}
             onChange={handleCategoryChange}
             renderValue={(selected) => {
-              const categoryNames = getCategoryNames(selected);
-              return categoryNames.length > 0 ? categoryNames : 'Select Categories';
+              const category = categories.find((cat) => cat._id === selected);
+              return category ? category.name : 'Select a Category';
             }}
           >
             {categories.length === 0 ? (
-              <MenuItem value="" disabled>Loading categories...</MenuItem>
+              <MenuItem value="" disabled>
+                Loading categories...
+              </MenuItem>
             ) : (
               categories.map((cat) => (
                 <MenuItem key={cat._id} value={cat._id}>
@@ -147,6 +190,7 @@ const QuizManagement = () => {
           onChange={(e) => setTotalTime(e.target.value)}
           margin="normal"
         />
+<<<<<<< HEAD
 
         <input
           type="String"
@@ -156,16 +200,36 @@ const QuizManagement = () => {
         />
         <button onClick={handleCreateQuiz}>Create Quiz</button>
 
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
 
-        <Button variant="contained" color="primary" onClick={handleCreateQuiz} fullWidth>
-          Create Quiz
+        <TextField
+          label="Passcode"
+          variant="outlined"
+          fullWidth
+          value={passcode}
+          onChange={(e) => setPasscode(e.target.value)}
+          margin="normal"
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={isEditing ? handleEditQuiz : handleCreateQuiz}
+          fullWidth
+        >
+          {isEditing ? 'Update Quiz' : 'Create Quiz'}
         </Button>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
       </div>
 
       {/* Quiz List */}
       <div className="quiz-list">
         <h3>Existing Quizzes</h3>
+<<<<<<< HEAD
 
         <table>
           <thead>
@@ -203,13 +267,16 @@ const QuizManagement = () => {
           </tbody>
         </table>
 
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>Quiz Name</TableCell>
-                <TableCell>Categories</TableCell>
+                <TableCell>Category</TableCell>
                 <TableCell>Total Time</TableCell>
+                <TableCell>Passcode</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -220,11 +287,27 @@ const QuizManagement = () => {
                     <TableCell>{quiz.quizName}</TableCell>
                     <TableCell>{getCategoryNames(quiz.categories)}</TableCell>
                     <TableCell>{quiz.totalTime} minutes</TableCell>
+                    <TableCell>{quiz.passcode}</TableCell>
                     <TableCell>
-                      <Button variant="outlined" color="secondary" onClick={() => alert('Edit functionality to be implemented')}>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => {
+                          setIsEditing(true);
+                          setEditQuizId(quiz._id);
+                          setQuizName(quiz.quizName);
+                          setSelectedCategory(quiz.categories[0]._id);
+                          setTotalTime(quiz.totalTime);
+                          setPasscode(quiz.passcode);
+                        }}
+                      >
                         <FaEdit /> Edit
                       </Button>
-                      <Button variant="outlined" color="error" onClick={() => handleDeleteQuiz(quiz._id)}>
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        onClick={() => handleDeleteQuiz(quiz._id)}
+                      >
                         <FaTrash /> Delete
                       </Button>
                     </TableCell>
@@ -232,13 +315,18 @@ const QuizManagement = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan="4" align="center">No quizzes available</TableCell>
+                  <TableCell colSpan="5" align="center">
+                    No quizzes available
+                  </TableCell>
                 </TableRow>
               )}
             </TableBody>
           </Table>
         </TableContainer>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72fd831d9b2072666a77032e292358f32ac8bc01
       </div>
     </div>
   );

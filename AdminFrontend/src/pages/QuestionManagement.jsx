@@ -199,27 +199,27 @@ const QuestionManagement = () => {
                     <button onClick={() => handleEditQuestion(question)}>
                       <FaEdit />
                     </button>
-                                    <button
-                  onClick={async () => {
-                    try {
-                      const response = await fetch(
-                        `http://localhost:4000/api/delete-question/${question._id}`,
-                        { method: 'DELETE' }
-                      );
-                      if (response.ok) {
-                        alert('Question deleted successfully');
-                        fetchQuestions(); // Refresh question list
-                      } else {
-                        alert('Failed to delete the question');
-                      }
-                    } catch (error) {
-                      console.error('Error deleting question:', error);
-                      alert('Error deleting question');
+                                  <button
+                onClick={async () => {
+                  try {
+                    const response = await fetch(
+                      `http://localhost:4000/api/delete-question/${question._id}`,
+                      { method: 'DELETE' }
+                    );
+                    if (response.ok) {
+                      alert('Question deleted successfully');
+                      fetchQuestions(); // Refresh question list
+                    } else {
+                      alert('Failed to delete the question');
                     }
-                  }}
-                >
-                  <FaTrash />
-                </button>
+                  } catch (error) {
+                    console.error('Error deleting question:', error);
+                    alert('Error deleting question');
+                  }
+                }}
+              >
+                <FaTrash />
+              </button>
 
                   </td>
                 </tr>
