@@ -4,6 +4,7 @@
     color: rgb(13, 6, 6);
     padding: 20px;
     display: flex;
+    max-height: 40px;
     justify-content: space-between;
     align-items: flex-start;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);

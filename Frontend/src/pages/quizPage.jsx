@@ -13,6 +13,13 @@ const UserPage = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  const handleLogin = () => {
+    // After successful login
+    setIsLoggedIn(true); // A state that indicates the user has logged in
+  };
+  
+  
+
   // Check if user is authenticated
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -37,6 +44,8 @@ const UserPage = () => {
     }
   };
 
+
+  
   // Example for fetching questions and passing to QuizCard
 const fetchQuestions = async (quizId, enteredPasscode) => {
   try {
@@ -47,7 +56,8 @@ const fetchQuestions = async (quizId, enteredPasscode) => {
       setQuestions(response.data);
       setMessage('');
       // Redirect to QuizCard component
-      navigate(`/quiz/${quizId}`, { state: { questions: response.data, quizName: selectedQuiz.quizName } });
+      navigate(`/quiz/${quizId}`,
+         { state: { questions: response.data, quizName: selectedQuiz.quizName,  options:selectedQuiz.options } });
     } else {
       setMessage('No questions available.');
     }
