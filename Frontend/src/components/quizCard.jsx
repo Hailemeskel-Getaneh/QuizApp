@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/pagesStyle/quizCard.css';
 import QuizTimer from '../components/QuizTimer.jsx'; // Importing the timer component
@@ -9,26 +9,10 @@ const QuizCard = () => {
   const { questions, quizName, quizId } = state || {}; // Include quizId from state
   const [currentPage, setCurrentPage] = useState(0); // Track current page index
   const [answers, setAnswers] = useState({}); // Track user answers
-  const [quizCompleted, setQuizCompleted] = useState(false); 
-  const [totalTime, setTotalTime] = useState(null); // Track quiz duration from the database
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
+  const DEFAULT_TIME = 1800; // Default quiz duration in seconds (e.g., 5 minutes)
   const QUESTIONS_PER_PAGE = 2; // Number of questions per page
-
-  // Fetch totalTime from the database
-  useEffect(() => {
-    const fetchQuizData = async () => {
-      try {
-        const response = await axios.get(`/api/quizzes/${quizId}`); // Replace with your API endpoint
-        setTotalTime(response.data.totalTime * 60); // Convert minutes to seconds
-      } catch (error) {
-        console.error('Error fetching quiz data:', error);
-      }
-    };
-
-    if (quizId) {
-      fetchQuizData();
-    }
-  }, [quizId]);
 
   const handleOptionChange = (questionIndex, optionValue) => {
     setAnswers((prevAnswers) => ({
@@ -59,45 +43,14 @@ const QuizCard = () => {
     return score;
   };
 
-  const getUserId = () => {
-    const token = localStorage.getItem('authToken');
-    console.log('Token in localStorage:', token);  // Log token to verify it exists
-    if (token) {
-      try {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));  // Decode the payload of the token
-        console.log('Decoded token:', decodedToken);  // Check decoded token
-        return decodedToken.userId;  // Return userId if present
-      } catch (error) {
-        console.error('Error decoding token:', error);
-        return null;
-      }
-    } else {
-      console.log('User is not logged in, token not found');
-      return null;  // Return null if no token found
-    }
-  };
-  
-  
-  
-
   // Handle quiz submission
   const handleSubmit = async () => {
     setQuizCompleted(true);
     const score = calculateScore(); // Calculate the score when the quiz is submitted
-    console.log('User answers:', answers);
-    console.log('Calculated score:', score);
-
-    // Get the logged-in user's ID
-    const userId = getUserId();
-    if (!userId) {
-      alert('User not logged in!');
-      return;
-    }
 
     // Send answers and score to the backend
     try {
-      await axios.post(`/api/quizzes/${quizId}/submit`, {
-        userId,
+      await axios.post(`http://localhost:4000/api/quizzes/${quizId}/submit`, {
         answers,
         score,
         quizId,
@@ -118,9 +71,7 @@ const QuizCard = () => {
     <div className="quiz-container">
       <div className="quiz-header">
         <h2>{quizName}</h2>
-        {totalTime && (
-          <QuizTimer duration={totalTime} onTimeUp={handleSubmit} />
-        )}
+        <QuizTimer duration={DEFAULT_TIME} onTimeUp={handleSubmit} />
       </div>
 
       {quizCompleted ? (
@@ -189,7 +140,7 @@ const QuizCard = () => {
               </div>
             </div>
           ) : (
-            <p className="no-questions">No questions available.</p>
+            <p>No questions available.</p>
           )}
         </>
       )}
@@ -198,8 +149,3 @@ const QuizCard = () => {
 };
 
 export default QuizCard;
-
-
-
-
-
