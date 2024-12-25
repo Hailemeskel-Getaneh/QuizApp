@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/pagesStyle/quizCard.css';
-import QuizTimer from '../components/QuizTimer.jsx';
+import QuizTimer from './QuizTimer.jsx';
 import axios from 'axios'; // Assuming you're using axios for API calls
 
 const QuizCard = () => {
