@@ -1,0 +1,73 @@
+
+
+.admin-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #201928 0%, #2575fc 100%);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 50px;
+  }
+  
+  .admin-header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    gap:20px;
+  }
+  
+  .admin-header .toggle-sidebar-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+  
+  .admin-header .nav-links {
+    display: flex;
+    margin-left: 800px;
+    gap: 2rem;
+    font-weight: bold;
+  }
+  .profile{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-image: url("../assets/images/homebg.jpg");
+  }
+  
+  .admin-header .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    margin-right: 10px;
+  
+  }
+  
+  .admin-header .nav-links a:hover {
+    color: #040c15;
+  }
+  .admin-header .nav-links #logout {
+    margin-right: 50px;
+  }
+  
+  body {
+    margin-top: 80px; 
+  }
+
+  @media (max-width: 768px) {
+    .admin-header .nav-links{
+      margin-left: 100px;
+    }
+  }
+  

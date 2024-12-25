@@ -1,23 +1,39 @@
-const ContactMessage = require('../models/contactModel');
+import ContactMessage from '../models/contactModel.js';
 
-// Create a new contact message
-exports.createContactMessage = async (req, res) => {
-  const contactMessage = new ContactMessage(req.body);
+// Add a new contact message
+export const addContactMessage = async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
 
-  try {
-    await contactMessage.save();
-    res.status(201).send({ message: 'Message submitted successfully!' });
-  } catch (error) {
-    res.status(400).send({ message: 'Message submission failed', error: error.message });
-  }
+        // Ensure all required fields are provided
+        if (!name || !email || !message) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        const newContactMessage = new ContactMessage({
+            name,
+            email,
+            message,
+        });
+
+        await newContactMessage.save();
+        res.status(201).json({ 
+            message: 'Message submitted successfully', 
+            contactMessage: newContactMessage 
+        });
+    } catch (error) {
+        console.error('Error submitting message:', error);
+        res.status(500).json({ message: 'Error submitting message', error: error.message });
+    }
 };
 
 // Get all contact messages (for administrative purposes)
-exports.getAllContactMessages = async (req, res) => {
-  try {
-    const contactMessages = await ContactMessage.find();
-    res.status(200).send(contactMessages);
-  } catch (error) {
-    res.status(400).send({ message: 'Failed to fetch messages', error: error.message });
-  }
+export const getAllContactMessages = async (req, res) => {
+    try {
+        const contactMessages = await ContactMessage.find();
+        res.status(200).json(contactMessages);
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+        res.status(500).json({ message: 'Error fetching messages', error: error.message });
+    }
 };
