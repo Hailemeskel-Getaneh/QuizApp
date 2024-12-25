@@ -10,3 +10,4 @@ router.post('/', addContactMessage);
 router.get('/', getAllContactMessages);
 
 export default router;
+
