@@ -4,13 +4,12 @@ import Quiz from '../models/quizModel.js';
 import QuizResult from '../models/quizResultModel.js';
 import User from '../models/userModel.js';
 
-// POST request to submit quiz results
 router.post('/:quizId/submit', async (req, res) => {
   const { userId, answers } = req.body;
   const { quizId } = req.params;
 
   try {
-    // Fetch the quiz from the database
+    
     const quiz = await Quiz.findById(quizId);
     if (!quiz) {
       return res.status(404).json({ error: 'Quiz not found' });
