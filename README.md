@@ -1,4 +1,4 @@
-Certainly! Here's the corrected version of your **README.md** without the asterisks (`*`) and with proper Markdown syntax:
+
 
 ```markdown
 # Quiz Management System
