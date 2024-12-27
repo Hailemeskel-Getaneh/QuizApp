@@ -191,6 +191,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Enjoy building and managing quizzes with the **Quiz Management System**!
 ```
 
----
-
-In this version, I have replaced the unnecessary `*` and **asterisks** with proper Markdown formatting for emphasis (`**bold**` and `###` for headings). This version should display cleanly on GitHub or any Markdown-compatible viewer. Let me know if you need any further adjustments!
+----------------------------------------------
