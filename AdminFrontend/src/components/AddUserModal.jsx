@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios
 import '../styles/modal.css'; // Ensure to style this modal in a separate file
 
 const AddUserModal = ({ setShowModal, fetchUsers }) => {
@@ -17,31 +18,20 @@ const AddUserModal = ({ setShowModal, fetchUsers }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     console.log('Submitting user data:', userData); // Log the form data
-  
+
     try {
-      const response = await fetch('http://localhost:4000/api/add-user', { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
-      
-  
-      if (!response.ok) {
-        throw new Error(`Failed to add user: ${response.statusText}`);
-      }
-  
-      const data = await response.json();
-      console.log('User added successfully:', data);
-  
+      const response = await axios.post('http://localhost:4000/api/add-user', userData);
+
+      console.log('User added successfully:', response.data);
+
       fetchUsers(); // Refresh the user list
       setShowModal(false); // Close modal after submitting
     } catch (error) {
       console.error('Error during user submission:', error);
     }
   };
-  
 
   return (
     <div className="modal-overlay">

@@ -13,13 +13,6 @@ const UserPage = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // After successful login
-    setIsLoggedIn(true); // A state that indicates the user has logged in
-  };
-  
-  
-
   // Check if user is authenticated
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -44,29 +37,31 @@ const UserPage = () => {
     }
   };
 
-
-  
-  // Example for fetching questions and passing to QuizCard
-const fetchQuestions = async (quizId, enteredPasscode) => {
-  try {
-    const response = await axios.post(`http://localhost:4000/api/quiz/${quizId}/questions`, {
-      passcode: enteredPasscode,
-    });
-    if (response.data && response.data.length > 0) {
-      setQuestions(response.data);
-      setMessage('');
-      // Redirect to QuizCard component
-      navigate(`/quiz/${quizId}`,
-         { state: { questions: response.data, quizName: selectedQuiz.quizName,  options:selectedQuiz.options } });
-    } else {
-      setMessage('No questions available.');
+  // Fetch questions and pass total time to QuizCard
+  const fetchQuestions = async (quizId, enteredPasscode) => {
+    try {
+      const response = await axios.post(`http://localhost:4000/api/quiz/${quizId}/questions`, {
+        passcode: enteredPasscode,
+      });
+      if (response.data && response.data.length > 0) {
+        setQuestions(response.data);
+        setMessage('');
+        // Redirect to QuizCard component with questions and total time
+        navigate(`/quiz/${quizId}`, {
+          state: {
+            questions: response.data,
+            quizName: selectedQuiz.quizName,
+            totalTime: selectedQuiz.totalTime,
+          },
+        });
+      } else {
+        setMessage('No questions available.');
+      }
+    } catch (error) {
+      setMessage('Incorrect passcode or failed to fetch questions.');
+      console.error('Error fetching questions:', error);
     }
-  } catch (error) {
-    setMessage('Incorrect passcode or failed to fetch questions.');
-    console.error('Error fetching questions:', error);
-  }
-};
-
+  };
 
   // Trigger when a user clicks on a quiz
   const handleQuizClick = (quiz) => {
@@ -100,8 +95,9 @@ const fetchQuestions = async (quizId, enteredPasscode) => {
               onClick={() => handleQuizClick(quiz)}
             >
               <h3>{quiz.quizName}</h3>
-              <p>{quiz.categories.map((cat) => cat.name).join(', ')}</p>
-              <p>{quiz.totalTime} minutes</p>
+              <p>Category: {quiz.categories.map((cat) => cat.name).join(', ')}</p>
+              <p>Time: {quiz.totalTime} minutes</p>
+              <button className="start-button">Start</button>
             </div>
           ))
         ) : (

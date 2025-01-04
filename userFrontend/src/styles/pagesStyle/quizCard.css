@@ -28,7 +28,7 @@ body {
   /* Quiz Container */
   .quiz-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 80%;
     margin: 0 auto;
     padding: 60px;
     background: #ffffff;
@@ -116,5 +116,19 @@ body {
     .quiz-question-text {
       font-size: 1rem;
     }
+  }
+  
+  .quiz-completed-message p:first-child{
+    font-size: 20px;
+
+  }
+  .quiz-completed-message p:last-child{
+    font-size: 25px;
+
+  }
+  .quiz-completed-message p:last-child span{
+    font-size: 25px;
+    color: rgb(167, 15, 33);
+
   }
   

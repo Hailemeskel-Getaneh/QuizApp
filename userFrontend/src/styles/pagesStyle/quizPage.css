@@ -4,11 +4,11 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f5f5f5;
-  color: #333;
+  color: hsl(0, 8%, 92%);
 }
 
 h2, h3 {
-  color: #333;
+  color: #f6f2f2;
   margin-bottom: 1rem;
   margin-top: 80px;
 }
@@ -39,7 +39,7 @@ button:hover {
 
 .quiz-card,
 .question-card {
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(135deg, #2d0fc3 0%, #0c5cd3 100%);
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -60,12 +60,12 @@ button:hover {
 .quiz-card h3 {
   font-size: 1.2rem;
   margin: 0.5rem 0;
-  color: #fff;
+  color: #fef9f9;
 }
 
 .quiz-card p {
   font-size: 1rem;
-  color: #fff;
+  color: #f5efef;
 }
 
 .question-card {
@@ -171,13 +171,6 @@ button:hover {
     margin-bottom: 1rem;
   }
 
-  /* Stack quiz cards in a column on smaller screens */
-  .quizzes-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Stack question cards in a column on smaller screens */
   .questions-container {
     flex-direction: column;
     align-items: center;
@@ -186,4 +179,61 @@ button:hover {
   .logout-button {
     margin-top: 200px;
   }
+}
+
+/* Updated Styles for Quizzes */
+.quizzes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.quiz-card {
+  background-color: #ffffff; /* Set a clean white background */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: left; /* Align content to the left */
+  cursor: pointer;
+  border-left: 5px solid #4CAF50; /* Add a left border with green color */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* Required for proper positioning of button */
+}
+
+.quiz-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-card h3 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.quiz-card p {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+  color: #666;
+}
+
+.quiz-card .start-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.quiz-card .start-button:hover {
+  background-color: #45a049;
 }

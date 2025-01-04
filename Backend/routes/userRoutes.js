@@ -12,8 +12,9 @@ const secretKey = process.env.JWT_SECRET;
 router.post('/add-user', async (req, res) => {
   const { userId, name, email, role } = req.body;
 
+
   // Hash the default password
-  const defaultPassword = "123456";
+  const defaultPassword = "qwe123";
   // const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
   // Generate unique ID for the user

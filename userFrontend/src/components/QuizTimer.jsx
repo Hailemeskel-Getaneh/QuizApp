@@ -12,7 +12,7 @@ const QuizTimer = ({ duration, onTimeUp }) => {
 
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => prevTime - 1);
-    }, 1000);
+    }, 800);
 
     return () => clearInterval(timer); // Cleanup on unmount
   }, [timeLeft, onTimeUp]);

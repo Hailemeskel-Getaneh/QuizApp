@@ -117,20 +117,20 @@ router.put('/edit-quiz/:id', async (req, res) => {
 
 router.get('/quizzes/:quizId/time-limit', async (req, res) => {
   const { quizId } = req.params;
-  console.log('Received quizId:', quizId); // Debugging log
 
   try {
     const quiz = await Quiz.findById(quizId);
     if (!quiz) {
-      console.error('Quiz not found');
       return res.status(404).json({ error: 'Quiz not found' });
     }
 
-    res.json({ timeLimit: quiz.totalTime });
+    res.json({ totalTime: quiz.totalTime });
   } catch (error) {
     console.error('Error fetching quiz time limit:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 export default router;

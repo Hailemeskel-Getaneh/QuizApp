@@ -1,18 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import '../styles/pagesStyle/quizCard.css';
 import QuizTimer from './QuizTimer.jsx';
-import axios from 'axios'; // Assuming you're using axios for API calls
 
 const QuizCard = () => {
   const { state } = useLocation();
-  const { questions, quizName, quizId } = state || {}; // Include quizId from state
-  const [currentPage, setCurrentPage] = useState(0); // Track current page index
-  const [answers, setAnswers] = useState({}); // Track user answers
-  const [quizCompleted, setQuizCompleted] = useState(false);
+  const { questions, quizName, quizId, totalTime } = state || {};
 
-  const DEFAULT_TIME = 1800; // Default quiz duration in seconds (e.g., 5 minutes)
-  const QUESTIONS_PER_PAGE = 2; // Number of questions per page
+  // Check if timer was saved in localStorage and restore it
+  const storedTime = localStorage.getItem(`quizTime-${quizId}`);
+  const initialTime = storedTime ? parseInt(storedTime) : (totalTime ? totalTime * 60 : 30 * 60);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [quizDuration, setQuizDuration] = useState(initialTime); // Start with the saved or default time
+
+  const QUESTIONS_PER_PAGE = 2;
+
+  // Timer logic to update and handle quiz duration
+  useEffect(() => {
+    if (quizCompleted) return;
+
+    const interval = setInterval(() => {
+      setQuizDuration((prevDuration) => {
+        if (prevDuration <= 1) {
+          clearInterval(interval);
+          handleTimeUp();
+          return 0;
+        }
+
+        const newDuration = prevDuration - 1;
+        localStorage.setItem(`quizTime-${quizId}`, newDuration); // Save remaining time
+        return newDuration;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval); // Clean up on component unmount
+  }, [quizCompleted, quizId]);
+
+  const handleTimeUp = () => {
+    setQuizCompleted(true);
+    alert('Time is up! Your quiz is being submitted.');
+    handleSubmit();
+  };
 
   const handleOptionChange = (questionIndex, optionValue) => {
     setAnswers((prevAnswers) => ({
@@ -33,6 +65,22 @@ const QuizCard = () => {
     }
   };
 
+  const handleSubmit = async () => {
+    setQuizCompleted(true);
+    try {
+      const score = calculateScore(); // Calculate the score
+      await axios.post(`http://localhost:4000/api/quizzes/${quizId}/submit`, {
+        answers,
+        score,
+      });
+
+      alert('Quiz submitted successfully!');
+      localStorage.removeItem(`quizTime-${quizId}`); // Clear stored timer
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
+    }
+  };
+
   const calculateScore = () => {
     let score = 0;
     questions.forEach((question, index) => {
@@ -41,30 +89,6 @@ const QuizCard = () => {
       }
     });
     return score;
-  };
-
-  // Handle quiz submission
-  const handleSubmit = async () => {
-    setQuizCompleted(true);
-    const score = calculateScore(); // Calculate the score when the quiz is submitted
-
-    // Send answers and score to the backend
-    try {
-      await axios.post(`http://localhost:4000/api/quizzes/${quizId}/submit`, {
-        answers,
-        score,
-        quizId,
-        username: 'John Doe', // Replace with actual username from user data
-      });
-
-      // Optionally, fetch the leaderboard after submitting
-      const leaderboardResponse = await axios.get(`/api/leaderboard/${quizId}`);
-      console.log('Leaderboard:', leaderboardResponse.data);
-
-      alert('Quiz submitted successfully!');
-    } catch (error) {
-      console.error('Error submitting quiz:', error);
-    }
   };
 
   const currentQuestions = questions?.slice(
@@ -76,7 +100,7 @@ const QuizCard = () => {
     <div className="quiz-container">
       <div className="quiz-header">
         <h2>{quizName}</h2>
-        <QuizTimer duration={DEFAULT_TIME} onTimeUp={handleSubmit} />
+        <QuizTimer duration={quizDuration} onTimeUp={handleTimeUp} />
       </div>
 
       {quizCompleted ? (
@@ -86,14 +110,16 @@ const QuizCard = () => {
             You answered {Object.keys(answers).length} out of {questions.length}{' '}
             questions.
           </p>
+          <p>
+            Your score: {calculateScore()} out of {questions.length}.
+          </p>
         </div>
       ) : (
         <>
           {currentQuestions && currentQuestions.length > 0 ? (
             <div className="quiz-question-card">
               {currentQuestions.map((question, index) => {
-                const questionIndex =
-                  currentPage * QUESTIONS_PER_PAGE + index;
+                const questionIndex = currentPage * QUESTIONS_PER_PAGE + index;
                 return (
                   <div key={questionIndex} className="quiz-question">
                     <p className="quiz-question-text">
